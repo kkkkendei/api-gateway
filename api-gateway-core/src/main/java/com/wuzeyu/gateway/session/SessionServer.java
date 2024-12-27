@@ -1,7 +1,13 @@
 package com.wuzeyu.gateway.session;
 
-public class SessionServer {
+import java.nio.channels.Channel;
+import java.util.concurrent.Callable;
+
+public class SessionServer implements Callable<Channel> {
 
 
-
+    @Override
+    public Channel call() throws Exception {
+        return null;
+    }
 }
