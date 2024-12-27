@@ -21,7 +21,7 @@ public class SessionChannelInitializer extends ChannelInitializer<SocketChannel>
         channel.pipeline().addLast(new HttpObjectAggregator(1024 * 1024));
 
         //处理自己的业务逻辑
-        //channel.pipeline().addLast(new SessionServerHandler());
+        channel.pipeline().addLast(new SessionServerHandler());
 
     }
 

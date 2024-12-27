@@ -25,7 +25,7 @@ public class SessionServerHandler extends BaseHandler<FullHttpRequest> {
         //这些信息中还包括了我们要向网页端返回的数据，也就是 response.content().writeBytes(...) 中写入的数据内容。
         DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         //返回信息控制
-        response.content().writeBytes(JSON.toJSONBytes("你的访问路径被ken_dei的网关管理了URI: " + request.uri() + SerializerFeature.PrettyFormat));
+        response.content().writeBytes(JSON.toJSONBytes("你的访问路径被ken_dei的网关管理了URI: " + request.uri() , SerializerFeature.PrettyFormat));
 
         //头部信息设置
         HttpHeaders heads = response.headers();
