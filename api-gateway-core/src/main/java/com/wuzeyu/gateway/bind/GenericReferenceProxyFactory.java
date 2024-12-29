@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author wuzeyu
- * @descrption RPC泛化调用代理工厂,操作代理类
+ * @descrption RPC泛化调用代理工厂,创建代理对象的实现类。
  * @github github.com/kkkkendei
  */
 public class GenericReferenceProxyFactory {
@@ -22,6 +22,9 @@ public class GenericReferenceProxyFactory {
      */
     private final GenericService genericService;
 
+    /**
+     * 缓存代理对象的实现类
+     */
     private final Map<String, IGenericReference> genericReferenceCache = new ConcurrentHashMap<>();
 
     public GenericReferenceProxyFactory(GenericService genericService) {
