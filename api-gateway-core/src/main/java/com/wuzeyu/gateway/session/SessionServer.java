@@ -13,7 +13,11 @@ import org.slf4j.LoggerFactory;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Callable;
 
-
+/**
+ * @author wuzeyu
+ * @description 网关会话服务
+ * @github github.com/kkkkendei
+ */
 public class SessionServer implements Callable<Channel> {
 
     private final Logger LOG = LoggerFactory.getLogger(SessionServer.class);

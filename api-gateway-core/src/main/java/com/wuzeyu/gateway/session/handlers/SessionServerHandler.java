@@ -9,10 +9,14 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 
+/**
+ * @author wuzeyu
+ * @description 会话服务处理
+ * @github github.com/kkkkendei
+ */
 public class SessionServerHandler extends BaseHandler<FullHttpRequest> {
 
     private final Logger logger = LoggerFactory.getLogger(SessionServerHandler.class);
-
 
 
     @Override
