@@ -1,5 +1,7 @@
 package com.wuzeyu.gateway.test;
 
+import com.wuzeyu.gateway.session.Configuration;
+import com.wuzeyu.gateway.session.GenericReferenceSessionFactoryBuilder;
 import com.wuzeyu.gateway.session.SessionServer;
 import io.netty.channel.Channel;
 import org.junit.Test;
@@ -16,18 +18,13 @@ public class ApiTest {
 
     @Test
     public void test() throws ExecutionException, InterruptedException {
-        SessionServer server = new SessionServer();
 
-        Future<Channel> future = Executors.newFixedThreadPool(2).submit(server);
-        Channel channel = future.get();
+        Configuration configuration = new Configuration();
+        configuration.addReference("api-gateway-test", "cn.bugstack.gateway.rpc.IActivityBooth", "sayHi");
+        GenericReferenceSessionFactoryBuilder builder = new GenericReferenceSessionFactoryBuilder();
+        Future<Channel> future = builder.build(configuration);
 
-        if (channel == null) throw new RuntimeException("netty server start error: channel is null");
-        while (!channel.isActive()) {
-            LOG.info("NettyServer启动服务。。。");
-            Thread.sleep(500);
-        }
-
-        LOG.info("NettyServer启动服务完成 {}", channel.localAddress());
+        LOG.info("NettyServer启动服务完成 {}", future.get().id());
         Thread.sleep(Long.MAX_VALUE);
     }
 

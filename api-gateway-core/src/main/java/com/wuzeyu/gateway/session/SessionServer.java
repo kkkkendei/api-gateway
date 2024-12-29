@@ -28,6 +28,12 @@ public class SessionServer implements Callable<Channel> {
 
     private Channel channel;
 
+    private Configuration configuration;
+
+    public SessionServer(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     @Override
     public Channel call() throws Exception {
 
@@ -38,7 +44,7 @@ public class SessionServer implements Callable<Channel> {
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    .childHandler(new SessionChannelInitializer());
+                    .childHandler(new SessionChannelInitializer(configuration));
             f = bootstrap.bind(new InetSocketAddress(7397)).syncUninterruptibly();
             this.channel = f.channel();
         } catch (Exception e) {

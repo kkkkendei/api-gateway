@@ -54,7 +54,7 @@ public class GenericReferenceRegistry {
     }
 
     /**
-     *
+     * 获取泛化调用服务
      * @param methodName 方法：sayHi
      * @return
      */
