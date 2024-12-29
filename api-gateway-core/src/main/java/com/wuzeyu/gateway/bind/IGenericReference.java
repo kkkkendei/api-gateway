@@ -1,4 +1,8 @@
 package com.wuzeyu.gateway.bind;
+import org.apache.dubbo.rpc.service.GenericService;
 
-public class IGenericReference {
+public interface IGenericReference {
+
+    String $invoke(String args);
+
 }
