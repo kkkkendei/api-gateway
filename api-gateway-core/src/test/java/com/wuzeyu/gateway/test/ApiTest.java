@@ -4,6 +4,7 @@ import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GenericReferenceSessionFactoryBuilder;
 import com.wuzeyu.gateway.session.SessionServer;
 import io.netty.channel.Channel;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubboConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

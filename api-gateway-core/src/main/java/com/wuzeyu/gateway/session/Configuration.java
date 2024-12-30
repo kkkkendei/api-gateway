@@ -36,7 +36,7 @@ public class Configuration {
         application.setQosEnable(false);
 
         RegistryConfig registry = new RegistryConfig();
-        registry.setAddress("zookeeper://47.122.26.159:2181");
+        registry.setAddress("zookeeper://47.122.26.159:2181?timeout=60000");
         registry.setRegister(false);
 
         ReferenceConfig<GenericService> reference = new ReferenceConfig<>();
