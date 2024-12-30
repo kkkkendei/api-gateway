@@ -27,6 +27,7 @@ public class ApiTest {
 
         LOG.info("NettyServer启动服务完成 {}", future.get().id());
         Thread.sleep(Long.MAX_VALUE);
+
     }
 
 }

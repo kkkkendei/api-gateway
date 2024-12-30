@@ -32,12 +32,16 @@ public class SessionServerHandler extends BaseHandler<FullHttpRequest> {
 
         logger.info("网关请求 uri: {} method: {}", request.uri(), request.method());
 
+        //服务泛化调用
+        IGenericReference reference = configuration.getRegistry().getGenericReference("sayHi");
+        String res = reference.$invoke("kendei") + " " + System.currentTimeMillis();
+
         //返回信息处理
         //DefaultFullHttpResponse相当于在构建HTTP会话所需的协议信息，包括头信息、编码、响应体长度、跨域访问等。
         //这些信息中还包括了我们要向网页端返回的数据，也就是 response.content().writeBytes(...) 中写入的数据内容。
         DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         //返回信息控制
-        response.content().writeBytes(JSON.toJSONBytes("你的访问路径被ken_dei的网关管理了URI: " + request.uri() , SerializerFeature.PrettyFormat));
+        response.content().writeBytes(JSON.toJSONBytes(res, SerializerFeature.PrettyFormat));
 
         //头部信息设置
         HttpHeaders heads = response.headers();
@@ -53,9 +57,7 @@ public class SessionServerHandler extends BaseHandler<FullHttpRequest> {
         heads.add(HttpHeaderNames.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE");
         heads.add(HttpHeaderNames.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
 
-        //服务泛化调用
-        IGenericReference reference = configuration.getRegistry().getGenericReference("sayHi");
-        String res = reference.$invoke("test") + " " + System.currentTimeMillis();
+
 
         channel.writeAndFlush(response);
 
