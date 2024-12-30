@@ -1,7 +1,7 @@
 package com.wuzeyu.gateway.session;
 
 
-import com.wuzeyu.gateway.bind.GenericReferenceRegistry;
+import com.wuzeyu.gateway.bind.MapperRegistry;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class Configuration {
 
-    private final GenericReferenceRegistry registry = new GenericReferenceRegistry(this);
+    private final MapperRegistry registry = new MapperRegistry(this);
 
     //RPC应用服务配置项
     private final Map<String, ApplicationConfig> applicationConfigMap = new HashMap<>();
@@ -50,7 +50,7 @@ public class Configuration {
 
     }
 
-    public GenericReferenceRegistry getRegistry() {
+    public MapperRegistry getRegistry() {
         return registry;
     }
 

@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @descrption RPC泛化调用代理工厂,创建代理对象的实现类。
  * @github github.com/kkkkendei
  */
-public class GenericReferenceProxyFactory {
+public class MapperProxyFactory {
 
     /**
      * RPC 泛化调用服务
@@ -27,7 +27,7 @@ public class GenericReferenceProxyFactory {
      */
     private final Map<String, IGenericReference> genericReferenceCache = new ConcurrentHashMap<>();
 
-    public GenericReferenceProxyFactory(GenericService genericService) {
+    public MapperProxyFactory(GenericService genericService) {
         this.genericService = genericService;
     }
 
@@ -36,7 +36,7 @@ public class GenericReferenceProxyFactory {
         return genericReferenceCache.computeIfAbsent(methodName, key -> {
 
             //泛化调用
-            GenericReferenceProxy genericReferenceProxy = new GenericReferenceProxy(genericService, methodName);
+            MapperProxy mapperProxy = new MapperProxy(genericService, methodName);
             //创建接口
             InterfaceMaker interfaceMaker = new InterfaceMaker();
             interfaceMaker.add(
@@ -53,7 +53,7 @@ public class GenericReferenceProxyFactory {
             // IGenericReference 统一泛化调用接口     interfaceClass 根据泛化调用注册信息创建的接口，建立HTTP -> RPC关联
             enhancer.setInterfaces(new Class[]{IGenericReference.class, interfaceClass});
             //设置方法拦截类
-            enhancer.setCallback(genericReferenceProxy);
+            enhancer.setCallback(mapperProxy);
 
             //返回代理对象-泛化调用
             return (IGenericReference) enhancer.create();

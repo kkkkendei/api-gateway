@@ -16,14 +16,14 @@ import java.util.Map;
  * @description 泛化调用注册器
  * @github github.com/kkkkendei
  */
-public class GenericReferenceRegistry {
+public class MapperRegistry {
 
     private final Configuration configuration;
 
     //泛化调用代理工厂
-    private final Map<String, GenericReferenceProxyFactory> knownGenericReferences = new HashMap<>();
+    private final Map<String, MapperProxyFactory> knownGenericReferences = new HashMap<>();
 
-    public GenericReferenceRegistry(Configuration configuration) {
+    public MapperRegistry(Configuration configuration) {
         this.configuration = configuration;
     }
 
@@ -49,7 +49,7 @@ public class GenericReferenceRegistry {
         GenericService genericService = cache.get(referenceConfig);
 
         //创建并保存泛化工厂
-        knownGenericReferences.put(methodName, new GenericReferenceProxyFactory(genericService));
+        knownGenericReferences.put(methodName, new MapperProxyFactory(genericService));
 
     }
 
@@ -60,12 +60,12 @@ public class GenericReferenceRegistry {
      */
     public IGenericReference getGenericReference(String methodName) {
 
-        GenericReferenceProxyFactory genericReferenceProxyFactory = knownGenericReferences.get(methodName);
-        if (genericReferenceProxyFactory == null) {
+        MapperProxyFactory mapperProxyFactory = knownGenericReferences.get(methodName);
+        if (mapperProxyFactory == null) {
             throw new RuntimeException(methodName + "is not known to the GenericReferenceRegistry");
         }
 
-        return genericReferenceProxyFactory.newInstance(methodName);
+        return mapperProxyFactory.newInstance(methodName);
 
     }
 

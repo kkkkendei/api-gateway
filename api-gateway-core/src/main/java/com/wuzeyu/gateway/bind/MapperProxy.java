@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * @description 泛化调用代理，给HTTP对应的RPC调用做一层代理控制。每调用到一个HTTP对应的网关方法就会以代理的方式调用RPC对应的泛化调用方法上
  * @github github.com/kkkkendei
  */
-public class GenericReferenceProxy implements MethodInterceptor {
+public class MapperProxy implements MethodInterceptor {
 
     /**
      * RPC泛化调用服务
@@ -23,7 +23,7 @@ public class GenericReferenceProxy implements MethodInterceptor {
      */
     private final String methodName;
 
-    public GenericReferenceProxy(GenericService genericService, String methodName) {
+    public MapperProxy(GenericService genericService, String methodName) {
         this.genericService = genericService;
         this.methodName = methodName;
     }
