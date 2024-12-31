@@ -1,5 +1,6 @@
-package com.wuzeyu.gateway.session;
+package com.wuzeyu.gateway.socket;
 
+import com.wuzeyu.gateway.session.Configuration;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -18,9 +19,9 @@ import java.util.concurrent.Callable;
  * @description 网关会话服务
  * @github github.com/kkkkendei
  */
-public class SessionServer implements Callable<Channel> {
+public class GatewaySocketServer implements Callable<Channel> {
 
-    private final Logger LOG = LoggerFactory.getLogger(SessionServer.class);
+    private final Logger LOG = LoggerFactory.getLogger(GatewaySocketServer.class);
 
     private final EventLoopGroup boss = new NioEventLoopGroup(1);
 
@@ -30,7 +31,7 @@ public class SessionServer implements Callable<Channel> {
 
     private Configuration configuration;
 
-    public SessionServer(Configuration configuration) {
+    public GatewaySocketServer(Configuration configuration) {
         this.configuration = configuration;
     }
 
@@ -44,7 +45,7 @@ public class SessionServer implements Callable<Channel> {
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    .childHandler(new SessionChannelInitializer(configuration));
+                    .childHandler(new GatewayChannelInitializer(configuration));
             f = bootstrap.bind(new InetSocketAddress(7397)).syncUninterruptibly();
             this.channel = f.channel();
         } catch (Exception e) {

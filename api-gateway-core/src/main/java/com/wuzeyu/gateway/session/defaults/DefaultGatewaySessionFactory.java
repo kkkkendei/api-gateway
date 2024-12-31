@@ -1,8 +1,8 @@
 package com.wuzeyu.gateway.session.defaults;
 
 import com.wuzeyu.gateway.session.Configuration;
-import com.wuzeyu.gateway.session.IGenericReferenceSessionFactory;
-import com.wuzeyu.gateway.session.SessionServer;
+import com.wuzeyu.gateway.session.GatewaySessionFactory;
+import com.wuzeyu.gateway.socket.GatewaySocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.netty.channel.Channel;
@@ -15,13 +15,13 @@ import java.util.concurrent.Future;
  * @description 泛化调用会话工厂
  * @github github.com/kkkkendei
  */
-public class GenericReferenceSessionFactory implements IGenericReferenceSessionFactory {
+public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
 
-    private final Logger LOG = LoggerFactory.getLogger(GenericReferenceSessionFactory.class);
+    private final Logger LOG = LoggerFactory.getLogger(DefaultGatewaySessionFactory.class);
 
     private final Configuration configuration;
 
-    public GenericReferenceSessionFactory(Configuration configuration) {
+    public DefaultGatewaySessionFactory(Configuration configuration) {
         this.configuration = configuration;
     }
 
@@ -29,7 +29,7 @@ public class GenericReferenceSessionFactory implements IGenericReferenceSessionF
     @Override
     public Future<Channel> openSession() throws ExecutionException, InterruptedException {
 
-        SessionServer server = new SessionServer(configuration);
+        GatewaySocketServer server = new GatewaySocketServer(configuration);
 
         Future<Channel> future = Executors.newFixedThreadPool(2).submit(server);
         Channel channel = future.get();

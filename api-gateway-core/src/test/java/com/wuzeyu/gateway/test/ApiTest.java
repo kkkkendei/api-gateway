@@ -2,20 +2,18 @@ package com.wuzeyu.gateway.test;
 
 import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GenericReferenceSessionFactoryBuilder;
-import com.wuzeyu.gateway.session.SessionServer;
+import com.wuzeyu.gateway.socket.GatewaySocketServer;
 import io.netty.channel.Channel;
-import org.apache.dubbo.config.spring.context.annotation.EnableDubboConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class ApiTest {
 
-    private final Logger LOG = LoggerFactory.getLogger(SessionServer.class);
+    private final Logger LOG = LoggerFactory.getLogger(GatewaySocketServer.class);
 
     @Test
     public void test() throws ExecutionException, InterruptedException {

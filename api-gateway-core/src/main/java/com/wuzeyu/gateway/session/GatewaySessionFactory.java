@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
  * @description 泛化调用会话工厂接口
  * @github github.com/kkkkendei
  */
-public interface IGenericReferenceSessionFactory {
+public interface GatewaySessionFactory {
 
     Future<Channel> openSession() throws ExecutionException, InterruptedException;
 

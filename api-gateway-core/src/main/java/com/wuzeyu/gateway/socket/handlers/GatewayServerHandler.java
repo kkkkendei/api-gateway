@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.session.handlers;
+package com.wuzeyu.gateway.socket.handlers;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -6,7 +6,7 @@ import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.session.Configuration;
 import io.netty.handler.codec.http.*;
 import org.slf4j.LoggerFactory;
-import com.wuzeyu.gateway.session.BaseHandler;
+import com.wuzeyu.gateway.socket.BaseHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -16,13 +16,13 @@ import org.slf4j.Logger;
  * @description 会话服务处理
  * @github github.com/kkkkendei
  */
-public class SessionServerHandler extends BaseHandler<FullHttpRequest> {
+public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
 
-    private final Logger logger = LoggerFactory.getLogger(SessionServerHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(GatewayServerHandler.class);
 
     private final Configuration configuration;
 
-    public SessionServerHandler(Configuration configuration) {
+    public GatewayServerHandler(Configuration configuration) {
         this.configuration = configuration;
     }
 

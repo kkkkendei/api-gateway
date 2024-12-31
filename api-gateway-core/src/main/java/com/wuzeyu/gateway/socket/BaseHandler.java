@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.session;
+package com.wuzeyu.gateway.socket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
