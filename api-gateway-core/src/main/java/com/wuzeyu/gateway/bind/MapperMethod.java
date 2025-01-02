@@ -1,6 +1,8 @@
 package com.wuzeyu.gateway.bind;
 
 import com.wuzeyu.gateway.mapping.HttpCommandType;
+import com.wuzeyu.gateway.session.Configuration;
+import jdk.internal.org.objectweb.asm.commons.Method;
 
 /**
  * @author wuzeyu
@@ -9,13 +11,13 @@ import com.wuzeyu.gateway.mapping.HttpCommandType;
  */
 public class MapperMethod {
 
-    private final String url;
+    private final String uri;
 
     private final HttpCommandType httpCommandType;
 
-    public MapperMethod(String url, HttpCommandType httpCommandType) {
-        this.url = url;
-        this.httpCommandType = ;
+    public MapperMethod(String uri, Method method, Configuration configuration) {
+        this.uri = uri;
+        this.httpCommandType = configuration.getHttpStatement(uri).getHttpCommandType();
     }
 
     public Object execute()

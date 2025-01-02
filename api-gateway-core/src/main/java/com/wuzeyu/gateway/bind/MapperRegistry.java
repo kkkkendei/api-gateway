@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.bind;
 
 import com.wuzeyu.gateway.session.Configuration;
+import com.wuzeyu.gateway.session.GatewaySession;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
@@ -21,10 +22,18 @@ public class MapperRegistry {
     private final Configuration configuration;
 
     //泛化调用代理工厂
-    private final Map<String, MapperProxyFactory> knownGenericReferences = new HashMap<>();
+    private final Map<String, MapperProxyFactory> knownMappers = new HashMap<>();
 
     public MapperRegistry(Configuration configuration) {
         this.configuration = configuration;
+    }
+
+
+    public IGenericReference getMapper(String uri, GatewaySession gatewaySession) {
+
+        MapperProxyFactory mapperProxyFactory = knownMappers.get(uri);
+        
+
     }
 
 
@@ -49,7 +58,7 @@ public class MapperRegistry {
         GenericService genericService = cache.get(referenceConfig);
 
         //创建并保存泛化工厂
-        knownGenericReferences.put(methodName, new MapperProxyFactory(genericService));
+        knownMappers.put(methodName, new MapperProxyFactory(genericService));
 
     }
 
@@ -60,7 +69,7 @@ public class MapperRegistry {
      */
     public IGenericReference getGenericReference(String methodName) {
 
-        MapperProxyFactory mapperProxyFactory = knownGenericReferences.get(methodName);
+        MapperProxyFactory mapperProxyFactory = knownMappers.get(methodName);
         if (mapperProxyFactory == null) {
             throw new RuntimeException(methodName + "is not known to the GenericReferenceRegistry");
         }

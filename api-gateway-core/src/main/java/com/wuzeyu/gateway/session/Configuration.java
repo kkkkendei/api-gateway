@@ -1,7 +1,9 @@
 package com.wuzeyu.gateway.session;
 
 
+import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.bind.MapperRegistry;
+import com.wuzeyu.gateway.mapping.HttpStatement;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class Configuration {
 
     private final MapperRegistry registry = new MapperRegistry(this);
+
+    private final Map<String, HttpStatement> httpStatementMap = new HashMap<>();
 
     //RPC应用服务配置项
     private final Map<String, ApplicationConfig> applicationConfigMap = new HashMap<>();
@@ -50,9 +54,10 @@ public class Configuration {
 
     }
 
-    public MapperRegistry getRegistry() {
-        return registry;
+    public IGenericReference getGenericReference(String methodName) {
+        return registry.getGenericReference(methodName);
     }
+
 
     public ApplicationConfig getApplicationConfig(String key) {
         return applicationConfigMap.get(key);
@@ -64,6 +69,14 @@ public class Configuration {
 
     public ReferenceConfig<GenericService> getReferenceConfig(String key) {
         return referenceConfigMap.get(key);
+    }
+
+    public void addHttpStatement(HttpStatement statement) {
+        httpStatementMap.put(statement.getUri(), statement);
+    }
+
+    public HttpStatement getHttpStatement(String uri) {
+        return httpStatementMap.get(uri);
     }
 
     public void addReference(String application, String interfaceName, String methodName) {

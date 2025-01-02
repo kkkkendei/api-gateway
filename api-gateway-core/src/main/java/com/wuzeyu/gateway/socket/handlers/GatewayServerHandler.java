@@ -33,7 +33,7 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
         logger.info("网关请求 uri: {} method: {}", request.uri(), request.method());
 
         //服务泛化调用
-        IGenericReference reference = configuration.getRegistry().getGenericReference("sayHi");
+        IGenericReference reference = configuration.getGenericReference("sayHi");
         String res = reference.$invoke("kendei") + " " + System.currentTimeMillis();
 
         //返回信息处理
