@@ -40,6 +40,7 @@ public class DefaultGatewaySession implements GatewaySession {
         ReferenceConfigCache cache = ReferenceConfigCache.getCache();
         GenericService genericService = cache.get(reference);
 
+        //注意一下
         return genericService.$invoke(httpStatement.getMethodName(), new String[]{"java.lang.String"}, new Object[]{parameter});
 
     }

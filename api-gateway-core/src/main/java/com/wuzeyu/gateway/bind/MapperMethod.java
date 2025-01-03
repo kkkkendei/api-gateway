@@ -2,7 +2,8 @@ package com.wuzeyu.gateway.bind;
 
 import com.wuzeyu.gateway.mapping.HttpCommandType;
 import com.wuzeyu.gateway.session.Configuration;
-import jdk.internal.org.objectweb.asm.commons.Method;
+import com.wuzeyu.gateway.session.GatewaySession;
+import java.lang.reflect.Method;
 
 /**
  * @author wuzeyu
@@ -20,8 +21,22 @@ public class MapperMethod {
         this.httpCommandType = configuration.getHttpStatement(uri).getHttpCommandType();
     }
 
-    public Object execute() {
-        return null;
+    public Object execute(GatewaySession session, Object args) {
+        Object res = null;
+        switch (httpCommandType) {
+            case GET:
+                res = session.get(uri, args);
+                break;
+            case POST:
+                break;
+            case PUT:
+                break;
+            case DELETE:
+                break;
+            default:
+                throw new RuntimeException("Unknown execution method for:" + httpCommandType);
+        }
+        return res;
     }
 
 }

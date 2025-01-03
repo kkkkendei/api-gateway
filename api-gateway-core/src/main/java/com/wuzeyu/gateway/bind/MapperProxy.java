@@ -3,7 +3,6 @@ package com.wuzeyu.gateway.bind;
 import com.wuzeyu.gateway.session.GatewaySession;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import org.apache.dubbo.rpc.service.GenericService;
 
 import java.lang.reflect.Method;
 
@@ -26,14 +25,9 @@ public class MapperProxy implements MethodInterceptor {
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        String[] parameters = new String[parameterTypes.length];
-        for (int i = 0; i < parameterTypes.length; ++ i) {
-            parameters[i] = parameterTypes[i].getName();
-        }
+        MapperMethod mapperMethod = new MapperMethod(uri, method, gatewaySession.getConfiguration());
+        return mapperMethod.execute(gatewaySession, args);
 
-        // 举例：genericService.$invoke("sayHi", new String[]{"java.lang.String"}, new Object[]{"world"});
-        return genericService.$invoke(methodName, parameters, args);
     }
 
 
