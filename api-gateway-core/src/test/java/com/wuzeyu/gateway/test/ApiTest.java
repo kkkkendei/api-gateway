@@ -1,29 +1,54 @@
 package com.wuzeyu.gateway.test;
 
+import com.wuzeyu.gateway.mapping.HttpCommandType;
+import com.wuzeyu.gateway.mapping.HttpStatement;
 import com.wuzeyu.gateway.session.Configuration;
-import com.wuzeyu.gateway.session.GenericReferenceSessionFactoryBuilder;
+import com.wuzeyu.gateway.session.GatewaySessionFactory;
+import com.wuzeyu.gateway.session.defaults.DefaultGatewaySessionFactory;
 import com.wuzeyu.gateway.socket.GatewaySocketServer;
 import io.netty.channel.Channel;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 
 public class ApiTest {
 
-    private final Logger LOG = LoggerFactory.getLogger(GatewaySocketServer.class);
+    private final Logger LOG = LoggerFactory.getLogger(ApiTest.class);
 
     @Test
     public void test() throws ExecutionException, InterruptedException {
 
+        //创建配置信息加载注册
         Configuration configuration = new Configuration();
-        configuration.addReference("api-gateway-test", "cn.bugstack.gateway.rpc.IActivityBooth", "sayHi");
-        GenericReferenceSessionFactoryBuilder builder = new GenericReferenceSessionFactoryBuilder();
-        Future<Channel> future = builder.build(configuration);
+        HttpStatement httpStatement = new HttpStatement(
+                "api-gateway-test",
+                "cn.bugstack.gateway.rpc.IActivityBooth",
+                "sayHi",
+                "/wa/activity/sayHi",
+                HttpCommandType.GET
+        );
 
-        LOG.info("NettyServer启动服务完成 {}", future.get().id());
+        //基于配置构建会话工厂
+        GatewaySessionFactory gatewaySessionFactory = new DefaultGatewaySessionFactory(configuration);
+
+        //创建启动网关网络服务
+        GatewaySocketServer server = new GatewaySocketServer(gatewaySessionFactory);
+
+        Future<Channel> future = Executors.newFixedThreadPool(2).submit(server);
+        Channel channel = future.get();
+
+        if (channel == null) throw new RuntimeException("netty server start error, channel is null");
+
+        while (!channel.isActive()) {
+            LOG.info("netty server gateway start Ing ...");
+            Thread.sleep(500);
+        }
+
+        LOG.info("NettyServer启动服务完成 {}", future.get().localAddress());
         Thread.sleep(Long.MAX_VALUE);
 
     }
