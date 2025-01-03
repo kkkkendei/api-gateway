@@ -28,9 +28,10 @@ public class ApiTest {
                 "api-gateway-test",
                 "cn.bugstack.gateway.rpc.IActivityBooth",
                 "sayHi",
-                "/wa/activity/sayHi",
+                "/wg/activity/sayHi",
                 HttpCommandType.GET
         );
+        configuration.addMapper(httpStatement);
 
         //基于配置构建会话工厂
         GatewaySessionFactory gatewaySessionFactory = new DefaultGatewaySessionFactory(configuration);

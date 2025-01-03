@@ -40,7 +40,7 @@ public class MapperRegistry {
 
         MapperProxyFactory mapperProxyFactory = knownMappers.get(uri);
         if (mapperProxyFactory == null) {
-            throw new RuntimeException("Uri" + uri + "is not known to the MapperRegistry");
+            throw new RuntimeException("Uri" + uri + " is not known to the MapperRegistry");
         }
         try {
             return mapperProxyFactory.newInstance(gatewaySession);
@@ -55,7 +55,7 @@ public class MapperRegistry {
         String uri = httpStatement.getUri();
         // 如果重复注册则报错
         if (knownMappers.containsKey(uri)) {
-            throw new RuntimeException("Uri" + uri + "is already known to the MapperRegistry");
+            throw new RuntimeException("Uri" + uri + " is already known to the MapperRegistry");
         }
         knownMappers.put(uri, new MapperProxyFactory(uri));
         // 保存接口映射信息
