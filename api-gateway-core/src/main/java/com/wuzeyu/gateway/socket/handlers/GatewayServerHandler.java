@@ -3,7 +3,10 @@ package com.wuzeyu.gateway.socket.handlers;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.wuzeyu.gateway.bind.IGenericReference;
-import com.wuzeyu.gateway.session.Configuration;
+import com.wuzeyu.gateway.session.GatewaySession;
+import com.wuzeyu.gateway.session.GatewaySessionFactory;
+import com.wuzeyu.gateway.session.GenericReferenceSessionFactoryBuilder;
+import com.wuzeyu.gateway.socket.GatewaySocketServer;
 import io.netty.handler.codec.http.*;
 import org.slf4j.LoggerFactory;
 import com.wuzeyu.gateway.socket.BaseHandler;
@@ -13,28 +16,31 @@ import org.slf4j.Logger;
 
 /**
  * @author wuzeyu
- * @description 会话服务处理
+ * @description 会话服务处理器
  * @github github.com/kkkkendei
  */
 public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
 
-    private final Logger logger = LoggerFactory.getLogger(GatewayServerHandler.class);
+    private final Logger LOG = LoggerFactory.getLogger(GatewayServerHandler.class);
 
-    private final Configuration configuration;
+    private final GatewaySessionFactory gatewaySessionFactory;
 
-    public GatewayServerHandler(Configuration configuration) {
-        this.configuration = configuration;
+    public GatewayServerHandler(GatewaySessionFactory gatewaySessionFactory) {
+        this.gatewaySessionFactory = gatewaySessionFactory;
     }
 
 
     @Override
     protected void session(ChannelHandlerContext context, Channel channel, FullHttpRequest request) {
 
-        logger.info("网关请求 uri: {} method: {}", request.uri(), request.method());
+        String uri = request.uri();
+        LOG.info("网关请求 uri: {} method: {}", uri, request.method());
 
         //服务泛化调用
-        IGenericReference reference = configuration.getGenericReference("sayHi");
-        String res = reference.$invoke("kendei") + " " + System.currentTimeMillis();
+        if (uri.equals("/favicon.ico")) return;
+        GatewaySession gatewaySession = gatewaySessionFactory.openSession();
+        IGenericReference reference = gatewaySession.getMapper(uri);
+        String res = reference.$invoke("ken_dei") + " " + System.currentTimeMillis();
 
         //返回信息处理
         //DefaultFullHttpResponse相当于在构建HTTP会话所需的协议信息，包括头信息、编码、响应体长度、跨域访问等。

@@ -27,7 +27,7 @@ public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
     }
 
     @Override
-    public GatewaySession openSession() throws ExecutionException, InterruptedException {
+    public GatewaySession openSession() {
         return new DefaultGatewaySession(configuration);
     }
 

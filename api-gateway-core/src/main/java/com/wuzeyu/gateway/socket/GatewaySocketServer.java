@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.socket;
 
 import com.wuzeyu.gateway.session.Configuration;
+import com.wuzeyu.gateway.session.GatewaySessionFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -29,10 +30,10 @@ public class GatewaySocketServer implements Callable<Channel> {
 
     private Channel channel;
 
-    private Configuration configuration;
+    private GatewaySessionFactory gatewaySessionFactory;
 
-    public GatewaySocketServer(Configuration configuration) {
-        this.configuration = configuration;
+    public GatewaySocketServer(GatewaySessionFactory gatewaySessionFactory) {
+        this.gatewaySessionFactory = gatewaySessionFactory;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class GatewaySocketServer implements Callable<Channel> {
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    .childHandler(new GatewayChannelInitializer(configuration));
+                    .childHandler(new GatewayChannelInitializer(gatewaySessionFactory));
             f = bootstrap.bind(new InetSocketAddress(7397)).syncUninterruptibly();
             this.channel = f.channel();
         } catch (Exception e) {

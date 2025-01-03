@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.socket;
 
-import com.wuzeyu.gateway.session.Configuration;
+
+import com.wuzeyu.gateway.session.GatewaySessionFactory;
 import com.wuzeyu.gateway.socket.handlers.GatewayServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
@@ -11,10 +12,10 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 
 public class GatewayChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private final Configuration configuration;
+    private final GatewaySessionFactory gatewaySessionFactory;
 
-    public GatewayChannelInitializer(Configuration configuration) {
-        this.configuration = configuration;
+    public GatewayChannelInitializer(GatewaySessionFactory gatewaySessionFactory) {
+        this.gatewaySessionFactory = gatewaySessionFactory;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class GatewayChannelInitializer extends ChannelInitializer<SocketChannel>
         channel.pipeline().addLast(new HttpObjectAggregator(1024 * 1024));
 
         //处理自己的业务逻辑
-        channel.pipeline().addLast(new GatewayServerHandler(configuration));
+        channel.pipeline().addLast(new GatewayServerHandler(gatewaySessionFactory));
 
     }
 
