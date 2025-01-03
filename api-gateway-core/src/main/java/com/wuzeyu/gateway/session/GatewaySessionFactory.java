@@ -6,11 +6,11 @@ import java.util.concurrent.Future;
 
 /**
  * @author wuzeyu
- * @description 泛化调用会话工厂接口
+ * @description 网关会话工厂接口
  * @github github.com/kkkkendei
  */
 public interface GatewaySessionFactory {
 
-    Future<Channel> openSession() throws ExecutionException, InterruptedException;
+    GatewaySession openSession() throws ExecutionException, InterruptedException;
 
 }

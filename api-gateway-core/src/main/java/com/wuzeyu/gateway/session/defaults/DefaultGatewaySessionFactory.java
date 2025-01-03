@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.session.defaults;
 
 import com.wuzeyu.gateway.session.Configuration;
+import com.wuzeyu.gateway.session.GatewaySession;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
 import com.wuzeyu.gateway.socket.GatewaySocketServer;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.util.concurrent.Future;
  */
 public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
 
-    private final Logger LOG = LoggerFactory.getLogger(DefaultGatewaySessionFactory.class);
+    //private final Logger LOG = LoggerFactory.getLogger(DefaultGatewaySessionFactory.class);
 
     private final Configuration configuration;
 
@@ -25,8 +26,12 @@ public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
         this.configuration = configuration;
     }
 
-
     @Override
+    public GatewaySession openSession() throws ExecutionException, InterruptedException {
+        return new DefaultGatewaySession(configuration);
+    }
+
+   /* @Override
     public Future<Channel> openSession() throws ExecutionException, InterruptedException {
 
         GatewaySocketServer server = new GatewaySocketServer(configuration);
@@ -43,5 +48,5 @@ public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
         LOG.info("netty server gateway start Done! {}", channel.localAddress());
 
         return future;
-    }
+    }*/
 }
