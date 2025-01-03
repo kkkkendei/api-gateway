@@ -20,6 +20,8 @@ public class MapperMethod {
         this.httpCommandType = configuration.getHttpStatement(uri).getHttpCommandType();
     }
 
-    public Object execute()
+    public Object execute() {
+        return null;
+    }
 
 }

@@ -54,10 +54,13 @@ public class Configuration {
 
     }
 
-    public IGenericReference getGenericReference(String methodName) {
-        return registry.getGenericReference(methodName);
+    public IGenericReference getMapper(String uri, GatewaySession gatewaySession) {
+        return registry.getMapper(uri, gatewaySession);
     }
 
+    public void addMapper(HttpStatement httpStatement) {
+        registry.addMapper(httpStatement);
+    }
 
     public ApplicationConfig getApplicationConfig(String key) {
         return applicationConfigMap.get(key);
@@ -79,7 +82,4 @@ public class Configuration {
         return httpStatementMap.get(uri);
     }
 
-    public void addReference(String application, String interfaceName, String methodName) {
-        registry.addGenericReference(application, interfaceName, methodName);
-    }
 }

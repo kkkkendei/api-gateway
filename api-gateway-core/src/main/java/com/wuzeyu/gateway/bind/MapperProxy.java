@@ -1,5 +1,6 @@
 package com.wuzeyu.gateway.bind;
 
+import com.wuzeyu.gateway.session.GatewaySession;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 import org.apache.dubbo.rpc.service.GenericService;
@@ -13,19 +14,13 @@ import java.lang.reflect.Method;
  */
 public class MapperProxy implements MethodInterceptor {
 
-    /**
-     * RPC泛化调用服务
-     */
-    private final GenericService genericService;
+    private GatewaySession gatewaySession;
 
-    /**
-     * RPC泛化调用方法
-     */
-    private final String methodName;
+    private final String uri;
 
-    public MapperProxy(GenericService genericService, String methodName) {
-        this.genericService = genericService;
-        this.methodName = methodName;
+    public MapperProxy(GatewaySession gatewaySession, String uri) {
+        this.gatewaySession = gatewaySession;
+        this.uri = uri;
     }
 
     @Override

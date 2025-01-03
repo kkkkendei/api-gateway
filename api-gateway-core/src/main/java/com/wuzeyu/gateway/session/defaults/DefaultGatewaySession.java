@@ -46,11 +46,11 @@ public class DefaultGatewaySession implements GatewaySession {
 
     @Override
     public IGenericReference getMapper(String uri) {
-        return null;
+        return configuration.getMapper(uri, this);
     }
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return configuration;
     }
 }
