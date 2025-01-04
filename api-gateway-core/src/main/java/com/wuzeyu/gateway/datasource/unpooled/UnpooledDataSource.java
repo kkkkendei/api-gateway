@@ -52,4 +52,15 @@ public class UnpooledDataSource implements Datasource {
 
     }
 
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public void setHttpStatement(HttpStatement httpStatement) {
+        this.httpStatement = httpStatement;
+    }
+
+    public void setDataSourceType(DataSourceType dataSourceType) {
+        this.dataSourceType = dataSourceType;
+    }
 }
