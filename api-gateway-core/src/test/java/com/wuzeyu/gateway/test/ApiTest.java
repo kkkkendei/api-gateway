@@ -35,7 +35,6 @@ public class ApiTest {
 
         //基于配置构建会话工厂
         GatewaySessionFactory gatewaySessionFactory = new DefaultGatewaySessionFactory(configuration);
-
         //创建启动网关网络服务
         GatewaySocketServer server = new GatewaySocketServer(gatewaySessionFactory);
 
