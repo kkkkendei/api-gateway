@@ -38,7 +38,7 @@ public class DubboConnection implements Connection {
      */
     @Override
     public Object execute(String method, String[] parameterTypes, String[] parameterNames, Object[] args) {
-        return genericService.$invoke(method, parameterTypes, argsgi);
+        return genericService.$invoke(method, parameterTypes, args);
     }
 
 }
