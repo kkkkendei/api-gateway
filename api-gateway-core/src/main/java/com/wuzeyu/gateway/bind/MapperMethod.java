@@ -14,10 +14,13 @@ public class MapperMethod {
 
     private final String uri;
 
+    private final String methodName;
+
     private final HttpCommandType httpCommandType;
 
     public MapperMethod(String uri, Method method, Configuration configuration) {
         this.uri = uri;
+        this.methodName = configuration.getHttpStatement(uri).getMethodName();
         this.httpCommandType = configuration.getHttpStatement(uri).getHttpCommandType();
     }
 
@@ -25,7 +28,7 @@ public class MapperMethod {
         Object res = null;
         switch (httpCommandType) {
             case GET:
-                res = session.get(uri, args);
+                res = session.get(methodName, args);
                 break;
             case POST:
                 break;

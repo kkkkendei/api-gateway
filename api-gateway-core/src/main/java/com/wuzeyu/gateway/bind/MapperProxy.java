@@ -26,7 +26,7 @@ public class MapperProxy implements MethodInterceptor {
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 
         MapperMethod mapperMethod = new MapperMethod(uri, method, gatewaySession.getConfiguration());
-        return mapperMethod.execute(gatewaySession, args);
+        return mapperMethod.execute(gatewaySession, args[0]);
 
     }
 
