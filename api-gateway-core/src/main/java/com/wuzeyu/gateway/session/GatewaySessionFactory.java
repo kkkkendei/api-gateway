@@ -11,6 +11,6 @@ import java.util.concurrent.Future;
  */
 public interface GatewaySessionFactory {
 
-    GatewaySession openSession();
+    GatewaySession openSession(String uri);
 
 }

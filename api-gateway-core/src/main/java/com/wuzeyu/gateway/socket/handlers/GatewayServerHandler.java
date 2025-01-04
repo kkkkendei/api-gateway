@@ -36,7 +36,7 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
 
         //服务泛化调用
         if (uri.equals("/favicon.ico")) return;
-        GatewaySession gatewaySession = gatewaySessionFactory.openSession();
+        GatewaySession gatewaySession = gatewaySessionFactory.openSession(uri);
         IGenericReference reference = gatewaySession.getMapper(uri);
         String res = reference.$invoke("ken_dei") + " " + System.currentTimeMillis();
 
