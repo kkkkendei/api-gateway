@@ -1,5 +1,7 @@
 package com.wuzeyu.gateway.bind;
 
+import java.util.Map;
+
 /**
  * @author wuzeyu
  * @description 统一泛化调用接口,可以允许硬编码
@@ -7,6 +9,6 @@ package com.wuzeyu.gateway.bind;
  */
 public interface IGenericReference {
 
-    String $invoke(String args);
+    String $invoke(Map<String, Object> args);
 
 }

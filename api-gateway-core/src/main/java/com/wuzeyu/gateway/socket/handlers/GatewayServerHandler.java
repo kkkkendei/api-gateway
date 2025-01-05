@@ -5,12 +5,15 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.session.GatewaySession;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
+import com.wuzeyu.gateway.socket.agreement.RequestParser;
 import io.netty.handler.codec.http.*;
 import org.slf4j.LoggerFactory;
 import com.wuzeyu.gateway.socket.BaseHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
+
+import java.util.Map;
 
 /**
  * @author wuzeyu
@@ -34,11 +37,18 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
         String uri = request.uri();
         LOG.info("网关请求 uri: {} method: {}", uri, request.method());
 
+        //解析请求参数
+        Map<String, Object> requestObj = new RequestParser(request).parse();
+
+        //返回信息控制
+        int idx = uri.indexOf("?");
+        uri = idx > 0 ? uri.substring(0, idx) : uri;
+
         //服务泛化调用
         if (uri.equals("/favicon.ico")) return;
         GatewaySession gatewaySession = gatewaySessionFactory.openSession(uri);
         IGenericReference reference = gatewaySession.getMapper(uri);
-        String res = reference.$invoke("ken_dei") + " " + System.currentTimeMillis();
+        String res = reference.$invoke(requestObj) + " " + System.currentTimeMillis();
 
         //返回信息处理
         //DefaultFullHttpResponse相当于在构建HTTP会话所需的协议信息，包括头信息、编码、响应体长度、跨域访问等。

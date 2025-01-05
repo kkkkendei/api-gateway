@@ -4,6 +4,7 @@ import com.wuzeyu.gateway.mapping.HttpCommandType;
 import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GatewaySession;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @author wuzeyu
@@ -24,13 +25,14 @@ public class MapperMethod {
         this.httpCommandType = configuration.getHttpStatement(uri).getHttpCommandType();
     }
 
-    public Object execute(GatewaySession session, Object args) {
+    public Object execute(GatewaySession session, Map<String, Object> params) {
         Object res = null;
         switch (httpCommandType) {
             case GET:
-                res = session.get(methodName, args);
+                res = session.get(methodName, params);
                 break;
             case POST:
+                res = session.post(methodName, params);
                 break;
             case PUT:
                 break;

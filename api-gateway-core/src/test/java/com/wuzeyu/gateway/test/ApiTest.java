@@ -24,7 +24,8 @@ public class ApiTest {
 
         //创建配置信息加载注册
         Configuration configuration = new Configuration();
-        HttpStatement httpStatement = new HttpStatement(
+
+        HttpStatement httpStatement01 = new HttpStatement(
                 "api-gateway-test",
                 "cn.bugstack.gateway.rpc.IActivityBooth",
                 "java.lang.String",
@@ -32,7 +33,18 @@ public class ApiTest {
                 "/wg/activity/sayHi",
                 HttpCommandType.GET
         );
-        configuration.addMapper(httpStatement);
+
+        HttpStatement httpStatement02 = new HttpStatement(
+                "api-gateway-test",
+                "cn.bugstack.gateway.rpc.IActivityBooth",
+                "cn.bugstack.gateway.rpc.dto.Xreq",
+                "insert",
+                "/wg/activity/insert",
+                HttpCommandType.POST
+        );
+
+        configuration.addMapper(httpStatement01);
+        configuration.addMapper(httpStatement02);
 
         //基于配置构建会话工厂
         GatewaySessionFactory gatewaySessionFactory = new DefaultGatewaySessionFactory(configuration);

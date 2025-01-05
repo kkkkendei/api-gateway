@@ -5,6 +5,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @author wuzeyu
@@ -26,7 +27,8 @@ public class MapperProxy implements MethodInterceptor {
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 
         MapperMethod mapperMethod = new MapperMethod(uri, method, gatewaySession.getConfiguration());
-        return mapperMethod.execute(gatewaySession, args[0]);
+        //暂时只获取第一个参数
+        return mapperMethod.execute(gatewaySession,(Map<String, Object>) args[0]);
 
     }
 
