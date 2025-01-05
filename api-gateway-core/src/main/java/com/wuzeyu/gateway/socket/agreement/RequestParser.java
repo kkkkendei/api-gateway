@@ -1,7 +1,17 @@
 package com.wuzeyu.gateway.socket.agreement;
 
+import com.alibaba.fastjson.JSON;
+import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.multipart.Attribute;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,6 +33,48 @@ public class RequestParser {
 
         //获取Content-type
         String contentType = getContentType();
+        //获取请求类型
+        HttpMethod method = request.method();
+        if (HttpMethod.GET == method) {
+
+            Map<String, Object> parameterMap = new HashMap<>();
+            //解析HTTP请求参数
+            QueryStringDecoder decoder = new QueryStringDecoder(request.uri());
+            Map<String, List<String>> params = decoder.parameters();
+            params.forEach((key, value) -> parameterMap.put(key, value.get(0)));
+            return parameterMap;
+
+        } else if (HttpMethod.POST == method) {
+
+            switch (contentType) {
+                case "multipart/form-data":
+                    Map<String, Object> parameterMap = new HashMap<>();
+                    HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(request);
+                    decoder.offer(request);
+                    decoder.getBodyHttpDatas().forEach(data -> {
+                        Attribute attribute = (Attribute) data;
+                        try {
+                            parameterMap.put(data.getName(), attribute.getValue());
+                        } catch (IOException ignore) {
+
+                        }
+                    });
+                    return parameterMap;
+
+                case "application/json":
+                    ByteBuf byteBuf = request.content().copy();
+                    if (byteBuf.isReadable()) {
+                        String content = byteBuf.toString(StandardCharsets.UTF_8);
+                        return JSON.parseObject(content);
+                    }
+                    break;
+
+                default:
+                    throw new RuntimeException("未实现的协议类型 Content-Type: " + contentType);
+            }
+
+        }
+        throw new RuntimeException("未实现的请求类型 HttpMethod: " + method);
 
     }
 
