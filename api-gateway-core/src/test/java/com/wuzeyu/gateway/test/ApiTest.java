@@ -27,6 +27,7 @@ public class ApiTest {
         HttpStatement httpStatement = new HttpStatement(
                 "api-gateway-test",
                 "cn.bugstack.gateway.rpc.IActivityBooth",
+                "java.lang.String",
                 "sayHi",
                 "/wg/activity/sayHi",
                 HttpCommandType.GET

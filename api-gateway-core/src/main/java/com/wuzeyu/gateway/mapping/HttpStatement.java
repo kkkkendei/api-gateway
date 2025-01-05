@@ -22,13 +22,17 @@ public class HttpStatement {
     //接口类型：GET,POST,PUT,DELETE
     private HttpCommandType httpCommandType;
 
-    public HttpStatement(String application, String interfaceName, String methodName, String uri, HttpCommandType httpCommandType) {
+    //参数类型
+    private String parameterType;
+
+    public HttpStatement(String application, String interfaceName, String parameterType, String methodName, String uri, HttpCommandType httpCommandType) {
 
         this.application = application;
         this.interfaceName = interfaceName;
         this.methodName = methodName;
         this.uri = uri;
         this.httpCommandType = httpCommandType;
+        this.parameterType = parameterType;
 
     }
 
@@ -50,5 +54,9 @@ public class HttpStatement {
 
     public HttpCommandType getHttpCommandType() {
         return httpCommandType;
+    }
+
+    public String getParameterType() {
+        return parameterType;
     }
 }
