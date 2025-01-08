@@ -30,6 +30,22 @@ public class RequestParser {
         this.request = request;
     }
 
+    /**
+     * 处理请求路径
+     * @return
+     */
+    public String getUri() {
+        String uri = request.uri();
+        int idx = uri.indexOf("?");
+        uri = idx > 0 ? uri.substring(0, idx) : uri;
+        if (uri.equals("/favicon.ico")) return null;
+        return uri;
+    }
+
+    /**
+     * 解析请求参数
+     * @return
+     */
     public Map<String, Object> parse() {
 
         //获取Content-type
