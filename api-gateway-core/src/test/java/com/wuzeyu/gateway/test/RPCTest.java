@@ -61,7 +61,7 @@ public class RPCTest {
 
 //        Object user = genericService.$invoke("sayHi", new String[]{"java.lang.String"}, params.values().toArray());
 //        Object user = genericService.$invoke("insert", new String[]{"cn.bugstack.gateway.rpc.dto.XReq"}, new Object[]{params});
-        Object user = genericService.$invoke("test", new String[]{"java.lang.String", "cn.bugstack.gateway.rpc.dto.XReq"}, new Object[]{params01.values().toArray()[0], params02});
+        String user = (String) genericService.$invoke("test", new String[]{"java.lang.String", "cn.bugstack.gateway.rpc.dto.XReq"}, new Object[]{params01.values().toArray()[0], params02});
 
 
         System.out.println(user);
