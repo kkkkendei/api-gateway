@@ -1,18 +1,17 @@
 package com.wuzeyu.gateway.socket.handlers;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.session.GatewaySession;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
+import com.wuzeyu.gateway.socket.BaseHandler;
 import com.wuzeyu.gateway.socket.agreement.RequestParser;
 import com.wuzeyu.gateway.socket.agreement.ResponseParser;
-import io.netty.handler.codec.http.*;
-import org.slf4j.LoggerFactory;
-import com.wuzeyu.gateway.socket.BaseHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -46,7 +45,7 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
         //会话服务
         GatewaySession gatewaySession = gatewaySessionFactory.openSession(uri);
         IGenericReference reference = gatewaySession.getMapper(uri);
-        String res = reference.$invoke(args) + " " + System.currentTimeMillis();
+        Object res = reference.$invoke(args);
 
         //返回结果
         DefaultFullHttpResponse response = new ResponseParser().parse(res);

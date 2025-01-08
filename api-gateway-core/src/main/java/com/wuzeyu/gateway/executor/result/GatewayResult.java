@@ -16,7 +16,7 @@ public class GatewayResult {
     //包含实际的调用结果数据,可以是任何类型的对象
     private Object data;
 
-    public GatewayResult(String code, String info, Object data) {
+    protected GatewayResult(String code, String info, Object data) {
         this.code = code;
         this.info = info;
         this.data = data;

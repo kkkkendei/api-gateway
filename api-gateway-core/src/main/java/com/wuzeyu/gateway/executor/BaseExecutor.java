@@ -30,13 +30,13 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
-    public GatewayResult exec(HttpStatement httpStatement, Map<String, Object> params) throws  Exception{
+    public GatewayResult exec(HttpStatement httpStatement, Map<String, Object> params) throws Exception {
 
         //参数处理，后续一些参数校验也可以在这里封装
         String methodName = httpStatement.getMethodName();
         String parameterType = httpStatement.getParameterType();
         String[] parameterTypes = new String[]{parameterType};
-        Object[] args = SimpleTypeRegistry.isSimpleType(parameterType) ? params.values().toArray() : new Object[]{parameterType};
+        Object[] args = SimpleTypeRegistry.isSimpleType(parameterType) ? params.values().toArray() : new Object[]{params};
         LOG.info("执行调用 method：{}#{}.{}({}) args：{}", httpStatement.getApplication(), httpStatement.getInterfaceName(), httpStatement.getMethodName(), JSON.toJSONString(parameterTypes), JSON.toJSONString(args));
         //抽象方法
         try {
@@ -48,6 +48,6 @@ public abstract class BaseExecutor implements Executor {
 
     }
 
-    protected  abstract Object doExec(String name, String[] parameterTypes, Object[] args);
+    protected abstract Object doExec(String name, String[] parameterTypes, Object[] args);
 
 }
