@@ -3,6 +3,7 @@ package com.wuzeyu.gateway.session.defaults;
 import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.datasource.Connection;
 import com.wuzeyu.gateway.datasource.Datasource;
+import com.wuzeyu.gateway.executor.Executor;
 import com.wuzeyu.gateway.mapping.HttpStatement;
 import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GatewaySession;
@@ -12,30 +13,27 @@ import java.util.Map;
 
 public class DefaultGatewaySession implements GatewaySession {
 
-    private final Configuration configuration;
+    private Configuration configuration;
 
-    private final String uri;
+    private String uri;
 
-    private final Datasource datasource;
+    private Executor executor;
 
-    public DefaultGatewaySession(Configuration configuration, String uri, Datasource datasource) {
+    public DefaultGatewaySession(Configuration configuration, String uri, Executor executor) {
         this.configuration = configuration;
         this.uri = uri;
-        this.datasource = datasource;
+        this.executor = executor;
     }
 
     @Override
     public Object get(String methodName, Map<String, Object> params) {
 
-        Connection connection = datasource.getConnection();
         HttpStatement httpStatement = configuration.getHttpStatement(uri);
-        String parameterType = httpStatement.getParameterType();
-
-        //注意一下
-        return connection.execute(methodName,
-                new String[]{parameterType},
-                new String[]{"name"},
-                SimpleTypeRegistry.isSimpleType(parameterType) ? params.values().toArray() : new Object[]{params});
+        try {
+            return executor.exec(httpStatement, params);
+        } catch (Exception e) {
+            throw new RuntimeException("Error exec, Cause: " + e);
+        }
 
     }
 

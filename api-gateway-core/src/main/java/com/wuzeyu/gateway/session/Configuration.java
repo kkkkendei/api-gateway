@@ -3,6 +3,9 @@ package com.wuzeyu.gateway.session;
 
 import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.bind.MapperRegistry;
+import com.wuzeyu.gateway.datasource.Connection;
+import com.wuzeyu.gateway.executor.Executor;
+import com.wuzeyu.gateway.executor.SimpleExecutor;
 import com.wuzeyu.gateway.mapping.HttpStatement;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
@@ -80,6 +83,10 @@ public class Configuration {
 
     public HttpStatement getHttpStatement(String uri) {
         return httpStatementMap.get(uri);
+    }
+
+    public Executor newExecutor(Connection connection) {
+        return new SimpleExecutor(this, connection);
     }
 
 }

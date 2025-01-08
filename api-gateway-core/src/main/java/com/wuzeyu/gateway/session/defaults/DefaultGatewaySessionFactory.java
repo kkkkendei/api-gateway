@@ -3,6 +3,7 @@ package com.wuzeyu.gateway.session.defaults;
 import com.wuzeyu.gateway.datasource.DataSourceFactory;
 import com.wuzeyu.gateway.datasource.Datasource;
 import com.wuzeyu.gateway.datasource.unpooled.UnpooledDataSourceFactory;
+import com.wuzeyu.gateway.executor.Executor;
 import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GatewaySession;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
@@ -32,11 +33,15 @@ public class DefaultGatewaySessionFactory implements GatewaySessionFactory {
     @Override
     public GatewaySession openSession(String uri) {
 
+        //获取数据源连接信息
         DataSourceFactory dataSourceFactory = new UnpooledDataSourceFactory();
         dataSourceFactory.setProperties(configuration, uri);
         Datasource datasource = dataSourceFactory.getDataSource();
+        //创建执行器
+        Executor executor = configuration.newExecutor(datasource.getConnection());
 
-        return new DefaultGatewaySession(configuration, uri, datasource);
+        //创建会话
+        return new DefaultGatewaySession(configuration, uri, executor);
     }
 
    /* @Override
