@@ -37,7 +37,7 @@ public class ApiTest {
         HttpStatement httpStatement02 = new HttpStatement(
                 "api-gateway-test",
                 "cn.bugstack.gateway.rpc.IActivityBooth",
-                "cn.bugstack.gateway.rpc.dto.Xreq",
+                "cn.bugstack.gateway.rpc.dto.XReq",
                 "insert",
                 "/wg/activity/insert",
                 HttpCommandType.POST
