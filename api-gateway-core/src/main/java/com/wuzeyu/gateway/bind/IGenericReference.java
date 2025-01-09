@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * @author wuzeyu
- * @description 统一泛化调用接口,可以允许硬编码
+ * @description 代理泛化调用接口
  * @github github.com/kkkkendei
  */
 public interface IGenericReference {

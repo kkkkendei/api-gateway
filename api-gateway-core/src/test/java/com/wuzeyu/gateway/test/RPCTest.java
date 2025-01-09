@@ -1,4 +1,4 @@
-package cn.bugstack.gateway.test;
+package com.wuzeyu.gateway.test;
 
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ReferenceConfig;
