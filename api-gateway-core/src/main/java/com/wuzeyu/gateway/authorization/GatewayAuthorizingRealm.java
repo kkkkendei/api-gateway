@@ -1,5 +1,6 @@
 package com.wuzeyu.gateway.authorization;
 
+import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -31,7 +32,10 @@ public class GatewayAuthorizingRealm extends AuthorizingRealm {
 
         try {
             // 验证解析是否报错
-            JwtUtil.decode(((GatewayAuthorizingToken) token).getJwt());
+            Claims claims = JwtUtil.decode(((GatewayAuthorizingToken) token).getJwt());
+            //验证签发人是否匹配
+            if (!token.getPrincipal().equals(claims.getSubject())) throw new AuthenticationException("无效令牌");
+
         } catch (Exception e) {
             throw new AuthenticationException("无效令牌");
         }

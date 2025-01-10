@@ -21,16 +21,16 @@ public class ShiroTest {
     @Test
     public void test_auth_service() {
         IAuth auth = new AuthService();
-        boolean validate = auth.validate("001", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4aWFvZnVnZSIsImlhdCI6MTczNjQzNTY1OCwia2V5IjoieGlhb2Z1Z2UifQ.iAQTOx3aBKXpwKgaff9Y74oNj1zDg1sjnEVwYE0CWCQ");
+        boolean validate = auth.validate("001", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZW5kZWkiLCJpYXQiOjE3MzY0MzYxODcsImtleSI6ImtlbmRlaSJ9.3sV0fo5mPIyuJWtqpKV2UA2e9Igq7uEaku62WlJvSqM");
         System.out.println(validate ? "验证成功" : "验证失败");
     }
 
     @Test
     public void test_jwt() {
-        String issuser = "xiaofuge";
+        String issuser = "kendei";
         long ttlMillis = 7 * 24 * 60 * 60 * 1000L;
         Map<String, Object> claims = new HashMap<>();
-        claims.put("key", "xiaofuge");
+        claims.put("key", "kendei");
 
         // 编码
         String token = JwtUtil.encode(issuser, ttlMillis, claims);
@@ -55,7 +55,7 @@ public class ShiroTest {
         Subject subject = SecurityUtils.getSubject();
 
         // 4. 默认提供的验证方式；UsernamePasswordToken
-        UsernamePasswordToken token = new UsernamePasswordToken("xiaofuge", "123");
+        UsernamePasswordToken token = new UsernamePasswordToken("kendei", "5185021");
 
         try {
             //5.1、登录，即身份验证

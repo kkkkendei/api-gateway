@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class JwtUtil {
 
-    private static final String signingKey = "B*B^5Fe";
+    private static final String signingKey = "w=z_y*";
 
     public static String encode(String issuer, long ttMills, Map<String, Object> claims) {
 

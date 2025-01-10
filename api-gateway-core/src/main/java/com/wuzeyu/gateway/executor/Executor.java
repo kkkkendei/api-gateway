@@ -1,6 +1,6 @@
 package com.wuzeyu.gateway.executor;
 
-import com.wuzeyu.gateway.executor.result.GatewayResult;
+import com.wuzeyu.gateway.executor.result.SessionResult;
 import com.wuzeyu.gateway.mapping.HttpStatement;
 
 import java.util.Map;
@@ -12,6 +12,6 @@ import java.util.Map;
  */
 public interface Executor {
 
-    GatewayResult exec(HttpStatement httpStatement, Map<String, Object> params) throws Exception;
+    SessionResult exec(HttpStatement httpStatement, Map<String, Object> params) throws Exception;
 
 }

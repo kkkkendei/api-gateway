@@ -5,7 +5,7 @@ package com.wuzeyu.gateway.executor.result;
  * @description 网关调用结果
  * @github github.com/kkkkendei
  */
-public class GatewayResult {
+public class SessionResult {
 
     //调用结果的状态码,0000表示调用成功,0001表示调用失败
     private String code;
@@ -16,18 +16,18 @@ public class GatewayResult {
     //包含实际的调用结果数据,可以是任何类型的对象
     private Object data;
 
-    protected GatewayResult(String code, String info, Object data) {
+    protected SessionResult(String code, String info, Object data) {
         this.code = code;
         this.info = info;
         this.data = data;
     }
 
-    public static GatewayResult buildSuccess(Object data) {
-        return new GatewayResult("0000", "调用成功", data);
+    public static SessionResult buildSuccess(Object data) {
+        return new SessionResult("0000", "调用成功", data);
     }
 
-    public static GatewayResult buildError(Object data) {
-        return new GatewayResult("0001", "调用失败", data);
+    public static SessionResult buildError(Object data) {
+        return new SessionResult("0001", "调用失败", data);
     }
 
     public String getCode() {

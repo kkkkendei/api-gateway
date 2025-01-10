@@ -2,7 +2,7 @@ package com.wuzeyu.gateway.executor;
 
 import com.alibaba.fastjson.JSON;
 import com.wuzeyu.gateway.datasource.Connection;
-import com.wuzeyu.gateway.executor.result.GatewayResult;
+import com.wuzeyu.gateway.executor.result.SessionResult;
 import com.wuzeyu.gateway.mapping.HttpStatement;
 import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.type.SimpleTypeRegistry;
@@ -30,7 +30,7 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
-    public GatewayResult exec(HttpStatement httpStatement, Map<String, Object> params) throws Exception {
+    public SessionResult exec(HttpStatement httpStatement, Map<String, Object> params) throws Exception {
 
         //参数处理，后续一些参数校验也可以在这里封装
         String methodName = httpStatement.getMethodName();
@@ -41,9 +41,9 @@ public abstract class BaseExecutor implements Executor {
         //抽象方法
         try {
             Object data = doExec(methodName, parameterTypes, args);
-            return GatewayResult.buildSuccess(data);
+            return SessionResult.buildSuccess(data);
         } catch (Exception e) {
-            return GatewayResult.buildError(e.getMessage());
+            return SessionResult.buildError(e.getMessage());
         }
 
     }
