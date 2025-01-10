@@ -7,25 +7,28 @@ package com.wuzeyu.gateway.mapping;
  */
 public class HttpStatement {
 
-    //服务名称
+    // 服务名称
     private String application;
 
-    //服务接口；RPC
+    // 服务接口；RPC
     private String interfaceName;
 
-    //服务方法；RPC
+    // 服务方法；RPC
     private String methodName;
 
-    //网关接口；uri
+    // 网关接口；uri
     private String uri;
 
-    //接口类型：GET,POST,PUT,DELETE
+    // 接口类型：GET,POST,PUT,DELETE
     private HttpCommandType httpCommandType;
 
-    //参数类型
+    // 参数类型
     private String parameterType;
 
-    public HttpStatement(String application, String interfaceName, String parameterType, String methodName, String uri, HttpCommandType httpCommandType) {
+    // 是否鉴权
+    private boolean auth;
+
+    public HttpStatement(String application, String interfaceName, String parameterType, String methodName, String uri, HttpCommandType httpCommandType, boolean auth) {
 
         this.application = application;
         this.interfaceName = interfaceName;
@@ -33,6 +36,7 @@ public class HttpStatement {
         this.uri = uri;
         this.httpCommandType = httpCommandType;
         this.parameterType = parameterType;
+        this.auth = auth;
 
     }
 

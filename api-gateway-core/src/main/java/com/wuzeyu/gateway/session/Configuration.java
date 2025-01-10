@@ -1,6 +1,8 @@
 package com.wuzeyu.gateway.session;
 
 
+import com.wuzeyu.gateway.authorization.IAuth;
+import com.wuzeyu.gateway.authorization.auth.AuthService;
 import com.wuzeyu.gateway.bind.IGenericReference;
 import com.wuzeyu.gateway.bind.MapperRegistry;
 import com.wuzeyu.gateway.datasource.Connection;
@@ -25,6 +27,8 @@ public class Configuration {
     private final MapperRegistry registry = new MapperRegistry(this);
 
     private final Map<String, HttpStatement> httpStatementMap = new HashMap<>();
+
+    private final IAuth auth = new AuthService();
 
     //RPC应用服务配置项
     private final Map<String, ApplicationConfig> applicationConfigMap = new HashMap<>();
@@ -87,6 +91,10 @@ public class Configuration {
 
     public Executor newExecutor(Connection connection) {
         return new SimpleExecutor(this, connection);
+    }
+
+    public boolean authValidate(String uId, String token) {
+        return auth.validate(uId, token);
     }
 
 }

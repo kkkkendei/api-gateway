@@ -31,7 +31,8 @@ public class ApiTest {
                 "java.lang.String",
                 "sayHi",
                 "/wg/activity/sayHi",
-                HttpCommandType.GET
+                HttpCommandType.GET,
+                true
         );
 
         HttpStatement httpStatement02 = new HttpStatement(
@@ -40,7 +41,8 @@ public class ApiTest {
                 "cn.bugstack.gateway.rpc.dto.XReq",
                 "insert",
                 "/wg/activity/insert",
-                HttpCommandType.POST
+                HttpCommandType.POST,
+                true
         );
 
         configuration.addMapper(httpStatement01);
