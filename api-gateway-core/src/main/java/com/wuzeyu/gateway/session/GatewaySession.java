@@ -15,7 +15,7 @@ public interface GatewaySession {
 
     Object post(String methodName, Map<String, Object> params);
 
-    IGenericReference getMapper(String uri);
+    IGenericReference getMapper();
 
     Configuration getConfiguration();
 

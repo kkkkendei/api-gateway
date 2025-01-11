@@ -7,8 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
-        <module name="api-gateway-core-example" />
+        <module name="api-gateway-core" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway-core-example" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

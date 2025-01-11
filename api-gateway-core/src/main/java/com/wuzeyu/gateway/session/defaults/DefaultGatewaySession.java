@@ -43,7 +43,7 @@ public class DefaultGatewaySession implements GatewaySession {
     }
 
     @Override
-    public IGenericReference getMapper(String uri) {
+    public IGenericReference getMapper() {
         return configuration.getMapper(uri, this);
     }
 

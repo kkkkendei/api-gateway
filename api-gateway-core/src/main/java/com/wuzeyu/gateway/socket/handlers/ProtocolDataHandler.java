@@ -42,20 +42,20 @@ public class ProtocolDataHandler extends BaseHandler<FullHttpRequest> {
 
         try {
             // 解析参数
-            RequestParser parser = new RequestParser(request);
-            String uri = parser.getUri();
+            RequestParser requestParser = new RequestParser(request);
+            String uri = requestParser.getUri();
             if (uri == null) {
                 return;
             }
-            Map<String, Object> args = new HashMap<>();
+            Map<String, Object> args = requestParser.parse();
 
             // 调用会话服务
             GatewaySession gatewaySession = gatewaySessionFactory.openSession(uri);
-            IGenericReference reference = gatewaySession.getMapper(uri);
+            IGenericReference reference = gatewaySession.getMapper();
             SessionResult res = reference.$invoke(args);
 
             // 封装返回结果
-            DefaultFullHttpResponse response = new ResponseParser().parse(res.getCode().equals("0000") ? GatewayResultMessage.buildSuccess(res.getData()) : GatewayResultMessage.buildError(AgreementConstants.ResponseCode._404.getCode(), "网关协议调用失败！"));
+            DefaultFullHttpResponse response = new ResponseParser().parse("0000".equals(res.getCode()) ? GatewayResultMessage.buildSuccess(res.getData()) : GatewayResultMessage.buildError(AgreementConstants.ResponseCode._404.getCode(), "网关协议调用失败！"));
             channel.writeAndFlush(response);
         } catch (Exception e) {
             // 封装返回结果

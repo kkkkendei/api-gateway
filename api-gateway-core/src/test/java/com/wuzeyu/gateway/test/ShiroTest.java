@@ -21,7 +21,7 @@ public class ShiroTest {
     @Test
     public void test_auth_service() {
         IAuth auth = new AuthService();
-        boolean validate = auth.validate("001", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZW5kZWkiLCJpYXQiOjE3MzY0MzYxODcsImtleSI6ImtlbmRlaSJ9.3sV0fo5mPIyuJWtqpKV2UA2e9Igq7uEaku62WlJvSqM");
+        boolean validate = auth.validate("kendei", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZW5kZWkiLCJpYXQiOjE3MzY0MzYxODcsImtleSI6ImtlbmRlaSJ9.3sV0fo5mPIyuJWtqpKV2UA2e9Igq7uEaku62WlJvSqM");
         System.out.println(validate ? "验证成功" : "验证失败");
     }
 

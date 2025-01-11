@@ -32,7 +32,7 @@ public class ApiTest {
                 "sayHi",
                 "/wg/activity/sayHi",
                 HttpCommandType.GET,
-                true
+                false
         );
 
         HttpStatement httpStatement02 = new HttpStatement(
@@ -51,7 +51,7 @@ public class ApiTest {
         //基于配置构建会话工厂
         GatewaySessionFactory gatewaySessionFactory = new DefaultGatewaySessionFactory(configuration);
         //创建启动网关网络服务
-        GatewaySocketServer server = new GatewaySocketServer(gatewaySessionFactory);
+        GatewaySocketServer server = new GatewaySocketServer(configuration, gatewaySessionFactory);
 
         Future<Channel> future = Executors.newFixedThreadPool(2).submit(server);
         Channel channel = future.get();

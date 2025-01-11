@@ -27,4 +27,15 @@ public class GatewayResultMessage {
         return new GatewayResultMessage(code, info, null);
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public Object getData() {
+        return data;
+    }
 }
