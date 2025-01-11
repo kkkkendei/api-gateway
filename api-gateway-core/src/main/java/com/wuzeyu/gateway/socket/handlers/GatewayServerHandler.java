@@ -1,9 +1,13 @@
 package com.wuzeyu.gateway.socket.handlers;
 
 import com.wuzeyu.gateway.bind.IGenericReference;
+import com.wuzeyu.gateway.mapping.HttpStatement;
+import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GatewaySession;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
 import com.wuzeyu.gateway.socket.BaseHandler;
+import com.wuzeyu.gateway.socket.agreement.AgreementConstants;
+import com.wuzeyu.gateway.socket.agreement.GatewayResultMessage;
 import com.wuzeyu.gateway.socket.agreement.RequestParser;
 import com.wuzeyu.gateway.socket.agreement.ResponseParser;
 import io.netty.channel.Channel;
@@ -24,10 +28,10 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
 
     private final Logger LOG = LoggerFactory.getLogger(GatewayServerHandler.class);
 
-    private final GatewaySessionFactory gatewaySessionFactory;
+    private final Configuration configuration;
 
-    public GatewayServerHandler(GatewaySessionFactory gatewaySessionFactory) {
-        this.gatewaySessionFactory = gatewaySessionFactory;
+    public GatewayServerHandler(Configuration configuration) {
+        this.configuration = configuration;
     }
 
 
@@ -36,20 +40,25 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
 
         LOG.info("网关请求 uri: {} method: {}", request.uri(), request.method());
 
-        //解析请求参数
-        RequestParser requestParser = new RequestParser(request);
-        String uri = requestParser.getUri();
-        if (uri == null) return;
-        Map<String, Object> args = requestParser.parse();
+        try {
+            // 解析请求参数
+            RequestParser requestParser = new RequestParser(request);
+            String uri = requestParser.getUri();
+            if (uri == null) return;
 
-        //会话服务
-        GatewaySession gatewaySession = gatewaySessionFactory.openSession(uri);
-        IGenericReference reference = gatewaySession.getMapper(uri);
-        Object res = reference.$invoke(args);
+            // 保存信息
+            HttpStatement httpStatement = configuration.getHttpStatement(uri);
+            channel.attr(AgreementConstants.HTTP_STATEMENT).set(httpStatement);
 
-        //返回结果
-        DefaultFullHttpResponse response = new ResponseParser().parse(res);
-        channel.writeAndFlush(response);
+            // 放行服务
+            request.retain();
+            context.fireChannelRead(request);
+
+        } catch (Exception e) {
+            // 封装返回结果
+            DefaultFullHttpResponse response = new ResponseParser().parse(GatewayResultMessage.buildError(AgreementConstants.ResponseCode._500.getCode(), "网关协议调用失败" + e.getMessage()));
+            channel.writeAndFlush(response);
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.socket;
 
 
+import com.wuzeyu.gateway.session.Configuration;
 import com.wuzeyu.gateway.session.GatewaySessionFactory;
 import com.wuzeyu.gateway.socket.handlers.GatewayServerHandler;
 import io.netty.channel.ChannelInitializer;
@@ -14,7 +15,10 @@ public class GatewayChannelInitializer extends ChannelInitializer<SocketChannel>
 
     private final GatewaySessionFactory gatewaySessionFactory;
 
-    public GatewayChannelInitializer(GatewaySessionFactory gatewaySessionFactory) {
+    private final Configuration configuration;
+
+    public GatewayChannelInitializer(Configuration configuration, GatewaySessionFactory gatewaySessionFactory) {
+        this.configuration = configuration;
         this.gatewaySessionFactory = gatewaySessionFactory;
     }
 
@@ -29,7 +33,7 @@ public class GatewayChannelInitializer extends ChannelInitializer<SocketChannel>
         channel.pipeline().addLast(new HttpObjectAggregator(1024 * 1024));
 
         //处理自己的业务逻辑
-        channel.pipeline().addLast(new GatewayServerHandler(gatewaySessionFactory));
+        channel.pipeline().addLast(new GatewayServerHandler(configuration));
 
     }
 
