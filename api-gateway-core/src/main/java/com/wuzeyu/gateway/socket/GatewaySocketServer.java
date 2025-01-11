@@ -32,8 +32,11 @@ public class GatewaySocketServer implements Callable<Channel> {
 
     private GatewaySessionFactory gatewaySessionFactory;
 
-    public GatewaySocketServer(GatewaySessionFactory gatewaySessionFactory) {
+    private final Configuration configuration;
+
+    public GatewaySocketServer(Configuration configuration, GatewaySessionFactory gatewaySessionFactory) {
         this.gatewaySessionFactory = gatewaySessionFactory;
+        this.configuration = configuration;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class GatewaySocketServer implements Callable<Channel> {
             bootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
-                    .childHandler(new GatewayChannelInitializer(gatewaySessionFactory));
+                    .childHandler(new GatewayChannelInitializer(configuration, gatewaySessionFactory));
             f = bootstrap.bind(new InetSocketAddress(7397)).syncUninterruptibly();
             this.channel = f.channel();
         } catch (Exception e) {
