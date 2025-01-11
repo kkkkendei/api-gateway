@@ -40,6 +40,10 @@ public class HttpStatement {
 
     }
 
+    public boolean isAuth() {
+        return auth;
+    }
+
     public String getApplication() {
         return application;
     }

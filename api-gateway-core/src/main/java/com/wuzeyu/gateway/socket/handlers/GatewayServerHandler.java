@@ -38,7 +38,7 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
     @Override
     protected void session(ChannelHandlerContext context, final Channel channel, FullHttpRequest request) {
 
-        LOG.info("网关请求 uri: {} method: {}", request.uri(), request.method());
+        LOG.info("网关接收请求【全局】 uri: {} method: {}", request.uri(), request.method());
 
         try {
             // 解析请求参数
