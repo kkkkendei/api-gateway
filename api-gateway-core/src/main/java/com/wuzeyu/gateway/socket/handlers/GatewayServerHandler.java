@@ -44,7 +44,6 @@ public class GatewayServerHandler extends BaseHandler<FullHttpRequest> {
             // 解析请求参数
             RequestParser requestParser = new RequestParser(request);
             String uri = requestParser.getUri();
-            if (uri == null) return;
 
             // 保存信息
             HttpStatement httpStatement = configuration.getHttpStatement(uri);

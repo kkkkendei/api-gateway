@@ -1,5 +1,7 @@
 package com.wuzeyu.gateway.bind;
 
+import com.wuzeyu.gateway.executor.result.SessionResult;
+
 import java.util.Map;
 
 /**
@@ -10,6 +12,6 @@ import java.util.Map;
 public interface IGenericReference {
 
     //暂时只接受一个参数
-    Object $invoke(Map<String, Object> args);
+    SessionResult $invoke(Map<String, Object> args);
 
 }
