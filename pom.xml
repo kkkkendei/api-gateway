@@ -7,6 +7,10 @@
     <groupId>com.wuzeyu.gateway</groupId>
     <artifactId>api-gateway</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>api-gateway-center</module>
+    </modules>
 
 
 </project>
