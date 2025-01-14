@@ -5,7 +5,9 @@ import com.wuzeyu.gateway.center.domain.repository.IApiRepository;
 import com.wuzeyu.gateway.center.infrastructure.dao.IHttpStatementDAO;
 import com.wuzeyu.gateway.center.infrastructure.po.HttpStatement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,10 @@ import java.util.List;
  * @description 仓储实现
  * @github github.com/kkkkendei
  */
+@Component
 public class ApiRepository implements IApiRepository {
 
-    @Autowired
+    @Resource
     private IHttpStatementDAO httpStatementDAO;
 
     @Override
