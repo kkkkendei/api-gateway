@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-gateway" />
         <module name="api-gateway-core" />
+        <module name="api-gateway-center" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

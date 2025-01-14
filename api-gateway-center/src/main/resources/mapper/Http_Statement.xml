@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzeyu.gateway.center.infrastructure.dao.IHttpStatementDao">
+
+    <resultMap id="HttpStatementMap" type="com.wuzeyu.gateway.center.infrastructure.po.HttpStatement">
+        <id column="id" property="id"/>
+        <id column="application" property="application"/>
+        <id column="interface_name" property="interfaceName"/>
+        <id column="method_name" property="methodName"/>
+        <id column="parameter_type" property="parameterType"/>
+        <id column="uri" property="uri"/>
+        <id column="http_command_type" property="httpCommandType"/>
+        <id column="auth" property="auth"/>
+        <id column="create_time" property="createTime"/>
+        <id column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryHttpStatementList" resultMap="HttpStatementMap">
+        SELECT application, interface_name, method_name, parameter_type, uri, http_command_type, auth, create_time, update_time
+        FROM http_statement
+    </select>
+
+</mapper>

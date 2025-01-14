@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 5185021
+    url: jdbc:mysql://47.122.26.159:3306/api-gateway?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  config-location:  classpath:/config/mybatis-config.xml
