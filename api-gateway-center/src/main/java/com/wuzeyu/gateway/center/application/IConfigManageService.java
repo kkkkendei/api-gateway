@@ -1,4 +1,5 @@
-package com.wuzeyu.gateway.center.domain.manage.repository;
+package com.wuzeyu.gateway.center.application;
+
 
 import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
 
@@ -6,10 +7,10 @@ import java.util.List;
 
 /**
  * @author wuzeyu
- * @description API 仓储
+ * @description 网关配置服务
  * @github github.com/kkkkendei
  */
-public interface IApiRepository {
+public interface IConfigManageService {
 
     List<ApiData> queryHttpStatementList();
 
