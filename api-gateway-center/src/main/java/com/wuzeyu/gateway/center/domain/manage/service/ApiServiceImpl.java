@@ -1,9 +1,9 @@
-package com.wuzeyu.gateway.center.domain.service;
+package com.wuzeyu.gateway.center.domain.manage.service;
 
 
 import com.wuzeyu.gateway.center.application.IApiService;
-import com.wuzeyu.gateway.center.domain.model.ApiData;
-import com.wuzeyu.gateway.center.domain.repository.IApiRepository;
+import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.repository.IApiRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

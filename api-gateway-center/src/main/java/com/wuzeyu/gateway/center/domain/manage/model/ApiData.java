@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.center.domain.model;
+package com.wuzeyu.gateway.center.domain.manage.model;
 
 
 /**

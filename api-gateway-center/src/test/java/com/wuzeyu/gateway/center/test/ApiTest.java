@@ -3,7 +3,7 @@ package com.wuzeyu.gateway.center.test;
 
 import com.alibaba.fastjson.JSON;
 import com.wuzeyu.gateway.center.application.IApiService;
-import com.wuzeyu.gateway.center.domain.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

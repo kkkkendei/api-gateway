@@ -1,10 +1,9 @@
 package com.wuzeyu.gateway.center.infrastructure.repository;
 
-import com.wuzeyu.gateway.center.domain.model.ApiData;
-import com.wuzeyu.gateway.center.domain.repository.IApiRepository;
+import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.repository.IApiRepository;
 import com.wuzeyu.gateway.center.infrastructure.dao.IHttpStatementDAO;
 import com.wuzeyu.gateway.center.infrastructure.po.HttpStatement;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

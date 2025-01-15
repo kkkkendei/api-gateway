@@ -112,6 +112,7 @@ COMMIT;
 DROP TABLE IF EXISTS `gateway_server_detail`;
 CREATE TABLE `gateway_server_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `group_id` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '分组标识',
   `gateway_id` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '网关标识',
   `gateway_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '网关名称',
   `gateway_address` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '网关地址：127.0.0.1',
@@ -119,8 +120,8 @@ CREATE TABLE `gateway_server_detail` (
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_gateway_id` (`gateway_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  UNIQUE KEY `idx_gateway` (`gateway_id`,`gateway_address`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of gateway_server_detail

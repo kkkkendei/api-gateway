@@ -2,7 +2,7 @@ package com.wuzeyu.gateway.center.interfaces;
 
 
 import com.wuzeyu.gateway.center.application.IApiService;
-import com.wuzeyu.gateway.center.domain.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

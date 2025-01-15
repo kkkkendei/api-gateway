@@ -1,6 +1,6 @@
-package com.wuzeyu.gateway.center.domain.repository;
+package com.wuzeyu.gateway.center.domain.manage.repository;
 
-import com.wuzeyu.gateway.center.domain.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
 
 import java.util.List;
 
