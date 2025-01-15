@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzeyu.gateway.center.infrastructure.dao.IGatewayServerDao">
+
+    <resultMap id="gatewayServerMap" type="com.wuzeyu.gateway.center.infrastructure.po.GatewayServer">
+        <id column="id" property="id"/>
+        <id column="group_id" property="groupId"/>
+        <id column="group_name" property="groupName"/>
+    </resultMap>
+
+    <select id="queryGatewayServerList" resultMap="gatewayServerMap">
+        SELECT id, group_id, group_name FROM gateway_server
+    </select>
+
+</mapper>
