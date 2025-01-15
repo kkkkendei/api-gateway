@@ -2,6 +2,7 @@ package com.wuzeyu.gateway.center.application;
 
 
 import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
+import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
  */
 public interface IConfigManageService {
 
-    List<ApiData> queryHttpStatementList();
+    List<GatewayServerVO> queryGatewayServerList();
+
+    boolean registerGatewayServerNode(String groupId, String gatewayId, String gatewayName, String gatewayAddress);
 
 }
