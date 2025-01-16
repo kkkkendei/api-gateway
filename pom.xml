@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>api-gateway-center</module>
+        <module>api-gateway-assist</module>
     </modules>
 
 
