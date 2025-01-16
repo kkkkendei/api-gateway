@@ -5,6 +5,7 @@ import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceMe
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationSystemVO;
 import com.wuzeyu.gateway.center.domain.register.repository.IRegisterManageRepository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
  * @description api注册服务
  * @github github.com/kkkkendei
  */
+@Service
 public class RegisterManageService implements IRegisterManageService {
 
     @Resource
