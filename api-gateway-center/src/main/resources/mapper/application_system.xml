@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzeyu.gateway.center.infrastructure.dao.IApplicationSystemDao">
+
+    <resultMap id="applicationSystemMap" type="com.wuzeyu.gateway.center.infrastructure.po.ApplicationSystem">
+        <id column="id" property="id"/>
+        <id column="system_id" property="systemId"/>
+        <id column="system_name" property="systemName"/>
+        <id column="system_type" property="systemType"/>
+        <id column="system_registry" property="systemRegistry"/>
+        <id column="create_time" property="createTime"/>
+        <id column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.wuzeyu.gateway.center.infrastructure.po.ApplicationSystem">
+        INSERT INTO application_system(system_id, system_name, system_type, system_registry, create_time, update_time)
+        VALUES (#{systemId}, #{systemName}, #{systemType}, #{systemRegistry}, NOW(), NOW());
+    </insert>
+
+</mapper>
