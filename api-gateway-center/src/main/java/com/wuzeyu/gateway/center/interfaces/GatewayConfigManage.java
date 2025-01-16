@@ -7,10 +7,7 @@ import com.wuzeyu.gateway.center.infrastructure.common.ResponseCode;
 import com.wuzeyu.gateway.center.infrastructure.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +18,7 @@ import java.util.List;
  * @github github.com/kkkkendei
  */
 @RestController
-@RequestMapping("/wa/admin/config")
+@RequestMapping("/wg/admin/config")
 public class GatewayConfigManage {
 
     private Logger LOG = LoggerFactory.getLogger(GatewayConfigManage.class);
@@ -53,6 +50,7 @@ public class GatewayConfigManage {
      * @param gatewayAddress 网关地址
      * @return 注册状态
      */
+    @PostMapping(value = "registerGateway", produces = "application/json;charset=utf-8")
     public Result<Boolean> registerGatewayServerNode(@RequestParam String groupId, @RequestParam String gatewayId, @RequestParam String gatewayName, @RequestParam String gatewayAddress) {
 
         try {

@@ -6,8 +6,6 @@ import com.wuzeyu.gateway.assist.GatewayException;
 import com.wuzeyu.gateway.assist.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class RegisterGatewayService {
         paramMap.put("gatewayId", gatewayId);
         paramMap.put("gatewayName", gatewayName);
         paramMap.put("gatewayAddress", gatewayAddress);
-        String res = HttpUtil.post(address, paramMap, 350);
+        String res = HttpUtil.post(address, paramMap, 3500);
         Result result = JSON.parseObject(res, Result.class);
         LOG.info("向网关中心注册网关算力服务 gatewayId：{} gatewayName：{} gatewayAddress：{} 注册结果：{}", gatewayId, gatewayName, gatewayAddress);
         if (! "0000".equals(result.getCode()))

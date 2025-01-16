@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "api-gateway",
+      "type": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "api-gateway.address",
+      "type": "java.lang.String",
+      "description": "注册中心地址",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    },
+    {
+      "name": "api-gateway.gateway-address",
+      "type": "java.lang.String",
+      "description": "网关地址",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    },
+    {
+      "name": "api-gateway.gateway-id",
+      "type": "java.lang.String",
+      "description": "网关ID",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    },
+    {
+      "name": "api-gateway.gateway-name",
+      "type": "java.lang.String",
+      "description": "网关名称",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    },
+    {
+      "name": "api-gateway.group-id",
+      "type": "java.lang.String",
+      "description": "分组ID",
+      "sourceType": "com.wuzeyu.gateway.assist.config.GatewayServiceProperties"
+    }
+  ],
+  "hints": []
+}
