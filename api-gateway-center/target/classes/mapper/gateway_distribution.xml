@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzeyu.gateway.center.infrastructure.dao.IGatewayDistributionDao">
+
+    <resultMap id="gatewayDistributionMap" type="com.wuzeyu.gateway.center.infrastructure.po.GatewayDistribution">
+        <id column="id" property="id"/>
+        <id column="group_id" property="groupId"/>
+        <id column="gateway_id" property="gatewayId"/>
+        <id column="system_id" property="systemId"/>
+        <id column="system_name" property="systemName"/>
+        <id column="create_time" property="createTime"/>
+        <id column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryGatewayDistributionSystemIdList" resultType="java.lang.String">
+        SELECT system_id FROM gateway_distribution
+    </select>
+
+</mapper>

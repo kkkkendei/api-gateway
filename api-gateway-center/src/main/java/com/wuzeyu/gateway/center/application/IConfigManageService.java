@@ -1,6 +1,7 @@
 package com.wuzeyu.gateway.center.application;
 
 
+import com.wuzeyu.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface IConfigManageService {
 
     boolean registerGatewayServerNode(String groupId, String gatewayId, String gatewayName, String gatewayAddress);
 
-
+    ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId);
 
 }

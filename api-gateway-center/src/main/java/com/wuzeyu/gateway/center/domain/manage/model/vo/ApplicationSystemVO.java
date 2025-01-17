@@ -1,6 +1,8 @@
 package com.wuzeyu.gateway.center.domain.manage.model.vo;
 
 
+import java.util.List;
+
 /**
  * @author wuzeyu
  * @descripiton 应用服务 VO
@@ -19,6 +21,9 @@ public class ApplicationSystemVO {
 
     /** 注册中心；zookeeper*/
     private String systemRegistry;
+
+    /** 接口方法 */
+    private List<ApplicationInterfaceVO> interfaceList;
 
     public String getSystemId() {
         return systemId;
@@ -52,4 +57,11 @@ public class ApplicationSystemVO {
         this.systemRegistry = systemRegistry;
     }
 
+    public List<ApplicationInterfaceVO> getInterfaceList() {
+        return interfaceList;
+    }
+
+    public void setInterfaceList(List<ApplicationInterfaceVO> interfaceList) {
+        this.interfaceList = interfaceList;
+    }
 }

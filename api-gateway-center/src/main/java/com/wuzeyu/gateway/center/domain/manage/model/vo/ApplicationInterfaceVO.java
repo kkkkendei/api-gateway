@@ -1,6 +1,10 @@
 package com.wuzeyu.gateway.center.domain.manage.model.vo;
 
 
+import com.wuzeyu.gateway.center.infrastructure.po.ApplicationInterface;
+
+import java.util.List;
+
 /**
  * @author wuzeyu
  * @description 应用接口 VO
@@ -19,6 +23,9 @@ public class ApplicationInterfaceVO {
 
     /** 接口版本 */
     private String interfaceVersion;
+
+    /** 方法解口 */
+    private List<ApplicationInterfaceMethodVO> methodList;
 
     public String getSystemId() {
         return systemId;
@@ -52,5 +59,11 @@ public class ApplicationInterfaceVO {
         this.interfaceVersion = interfaceVersion;
     }
 
+    public List<ApplicationInterfaceMethodVO> getMethodList() {
+        return methodList;
+    }
 
+    public void setMethodList(List<ApplicationInterfaceMethodVO> methodList) {
+        this.methodList = methodList;
+    }
 }
