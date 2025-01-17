@@ -4,7 +4,6 @@ package com.wuzeyu.gateway.center.test;
 import com.alibaba.fastjson.JSON;
 import com.wuzeyu.gateway.center.application.IConfigManageService;
 import com.wuzeyu.gateway.center.application.IRegisterManageService;
-import com.wuzeyu.gateway.center.domain.manage.model.ApiData;
 import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceMethodVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceVO;

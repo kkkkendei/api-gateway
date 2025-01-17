@@ -5,6 +5,8 @@ import com.wuzeyu.gateway.center.infrastructure.po.ApplicationInterface;
 import com.wuzeyu.gateway.center.infrastructure.po.ApplicationSystem;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author wuzeyu
  * @description 应用接口dao
@@ -14,5 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IApplicationInterfaceDao {
 
     void insert(ApplicationInterface applicationInterface);
+
+    List<ApplicationInterface> queryApplicationInterfaceList(String systemId);
 
 }

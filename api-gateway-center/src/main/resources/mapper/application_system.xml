@@ -17,4 +17,13 @@
         VALUES (#{systemId}, #{systemName}, #{systemType}, #{systemRegistry}, NOW(), NOW());
     </insert>
 
+    <select id="queryApplicationSystemList" parameterType="java.util.List" resultMap="applicationSystemMap">
+        SELECT id, system_id, system_name, system_type, system_registry
+        FROM application_system
+        WHERE system_id in
+        <foreach collection="list" index="idx" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
+
 </mapper>

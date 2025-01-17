@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.center.domain.register.model.vo;
+package com.wuzeyu.gateway.center.domain.manage.model.vo;
 
 
 /**

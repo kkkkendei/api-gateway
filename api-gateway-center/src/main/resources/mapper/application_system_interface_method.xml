@@ -23,4 +23,10 @@
         #{uri}, #{httpCommandType}, #{auth}, NOW(), NOW());
     </insert>
 
+    <select id="queryApplicationInterfaceMethodList" parameterType="cn.bugstack.gateway.center.infrastructure.po.ApplicationInterfaceMethod" resultMap="applicationInterfaceMethodMap">
+        SELECT id, system_id, interface_id, method_id, method_name, parameter_type, uri, http_command_type, auth
+        FROM application_interface_method
+        WHERE system_id = #{systemId} AND interface_id = #{interfaceId}
+    </select>
+
 </mapper>
