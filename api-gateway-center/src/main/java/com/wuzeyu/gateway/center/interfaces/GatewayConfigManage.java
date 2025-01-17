@@ -2,6 +2,7 @@ package com.wuzeyu.gateway.center.interfaces;
 
 
 import com.wuzeyu.gateway.center.application.IConfigManageService;
+import com.wuzeyu.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import com.wuzeyu.gateway.center.infrastructure.common.ResponseCode;
 import com.wuzeyu.gateway.center.infrastructure.common.Result;
@@ -63,5 +64,18 @@ public class GatewayConfigManage {
         }
 
     }
+
+    @PostMapping(value = "queryApplicationSystemRichInfo", produces = "application/json;charset=utf-8")
+    public Result<ApplicationSystemRichInfo> queryApplicationSystemRichInfo(@RequestParam String gatewayId) {
+        try {
+            LOG.info("查询分配到网关下的待注册系统信息(系统、接口、方法) gatewayId：{}", gatewayId);
+            ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo(gatewayId);
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), applicationSystemRichInfo);
+        } catch (Exception e) {
+            LOG.error("查询分配到网关下的待注册系统信息(系统、接口、方法)异常 gatewayId：{}", gatewayId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
 
 }

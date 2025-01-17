@@ -14,7 +14,7 @@
 
     <insert id="insert" parameterType="com.wuzeyu.gateway.center.infrastructure.po.ApplicationSystem">
         INSERT INTO application_system(system_id, system_name, system_type, system_registry, create_time, update_time)
-        VALUES (#{systemId}, #{systemName}, #{systemType}, #{systemRegistry}, NOW(), NOW());
+        VALUES (#{systemId}, #{systemName}, #{systemType}, #{systemRegistry}, NOW(), NOW())
     </insert>
 
     <select id="queryApplicationSystemList" parameterType="java.util.List" resultMap="applicationSystemMap">

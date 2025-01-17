@@ -14,7 +14,7 @@
 
     <insert id="insert" parameterType="com.wuzeyu.gateway.center.infrastructure.po.ApplicationInterfaceMethod">
         insert into application_interface(system_id, interface_id, interface_name, interface_version, create_time, update_time)
-        values(#{systemId}, #{interfaceId}, #{interfaceName}, #{interfaceVersion}, now(), now());
+        values(#{systemId}, #{interfaceId}, #{interfaceName}, #{interfaceVersion}, now(), now())
     </insert>
 
     <select id="queryApplicationInterfaceList" parameterType="java.lang.String" resultMap="applicationInterfaceMap">

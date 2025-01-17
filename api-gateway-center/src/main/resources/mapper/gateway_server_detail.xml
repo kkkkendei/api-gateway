@@ -15,7 +15,7 @@
 
     <insert id="insert" parameterType="com.wuzeyu.gateway.center.infrastructure.po.GatewayServerDetail">
         INSERT INTO gateway_server_detail(group_id, gateway_id, gateway_name, gateway_address, status, create_time, update_time)
-        VALUES (#{groupId}, #{gatewayId}, #{gatewayName}, #{gatewayAddress}, #{status}, NOW(), NOW());
+        VALUES (#{groupId}, #{gatewayId}, #{gatewayName}, #{gatewayAddress}, #{status}, NOW(), NOW())
     </insert>
 
     <select id="queryGatewayServerDetail" parameterType="java.lang.String" resultMap="gatewayServerDetailMap">

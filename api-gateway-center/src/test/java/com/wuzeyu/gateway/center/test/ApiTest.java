@@ -4,6 +4,7 @@ package com.wuzeyu.gateway.center.test;
 import com.alibaba.fastjson.JSON;
 import com.wuzeyu.gateway.center.application.IConfigManageService;
 import com.wuzeyu.gateway.center.application.IRegisterManageService;
+import com.wuzeyu.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceMethodVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceVO;
@@ -91,6 +92,12 @@ public class ApiTest {
         applicationInterfaceVO02.setHttpCommandType("POST");
         applicationInterfaceVO02.setAuth(1);
         registerManageService.registerApplicationInterfaceMethod(applicationInterfaceVO02);
+    }
+
+    @Test
+    public void test_queryApplicationSystemRichInfo(){
+        ApplicationSystemRichInfo result = configManageService.queryApplicationSystemRichInfo("api-gateway-g4");
+        logger.info("测试结果：{}", JSON.toJSONString(result));
     }
 
 }
