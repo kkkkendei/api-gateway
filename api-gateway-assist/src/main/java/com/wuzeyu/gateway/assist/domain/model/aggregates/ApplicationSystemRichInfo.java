@@ -1,9 +1,6 @@
 package com.wuzeyu.gateway.assist.domain.model.aggregates;
 
-
-
 import com.wuzeyu.gateway.assist.domain.model.vo.ApplicationSystemVO;
-
 import java.util.List;
 
 /**

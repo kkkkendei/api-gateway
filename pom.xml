@@ -11,6 +11,7 @@
     <modules>
         <module>api-gateway-center</module>
         <module>api-gateway-assist</module>
+        <module>api-gateway-assist-test</module>
     </modules>
 
 

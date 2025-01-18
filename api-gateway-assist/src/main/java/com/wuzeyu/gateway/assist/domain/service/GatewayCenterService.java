@@ -16,9 +16,9 @@ import java.util.Map;
  * @description 网关注册服务
  * @github github.com/kkkkendei
  */
-public class RegisterGatewayService {
+public class GatewayCenterService {
 
-    private Logger LOG = LoggerFactory.getLogger(RegisterGatewayService.class);
+    private Logger LOG = LoggerFactory.getLogger(GatewayCenterService.class);
 
     public void doRegister(String address, String groupId, String gatewayId, String gatewayName, String gatewayAddress) {
 
@@ -27,7 +27,7 @@ public class RegisterGatewayService {
         paramMap.put("gatewayId", gatewayId);
         paramMap.put("gatewayName", gatewayName);
         paramMap.put("gatewayAddress", gatewayAddress);
-        String res = HttpUtil.post(address, paramMap, 3500);
+        String res = HttpUtil.post(address + "/wg/admin/config/registerGateway", paramMap, 3500);
         Result result = JSON.parseObject(res, Result.class);
         LOG.info("向网关中心注册网关算力服务 gatewayId：{} gatewayName：{} gatewayAddress：{} 注册结果：{}", gatewayId, gatewayName, gatewayAddress);
         if (! "0000".equals(result.getCode()))
@@ -39,7 +39,7 @@ public class RegisterGatewayService {
 
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gatewayId", gatewayId);
-        String resStr = HttpUtil.post(address + "/wg/admin/config/queryApplicationSystemRichInfo", paramMap);
+        String resStr = HttpUtil.post(address + "/wg/admin/config/queryApplicationSystemRichInfo", paramMap, 3500);
         Result<ApplicationSystemRichInfo> result = JSON.parseObject(resStr, new TypeReference<Result<ApplicationSystemRichInfo>>(){});
         LOG.info("从网关中心拉取应用服务和接口的配置信息到本地完成注册。gatewayId：{}", gatewayId);
         if (!"0000".equals(result.getCode()))

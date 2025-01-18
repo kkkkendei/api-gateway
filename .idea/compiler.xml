@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway-assist-test" />
+        <module name="api-gateway-center" />
         <module name="api-gateway-core" />
         <module name="api-gateway-assist" />
-        <module name="api-gateway-center" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +19,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway-assist" options="-parameters" />
+      <module name="api-gateway-assist-test" options="-parameters" />
       <module name="api-gateway-center" options="-parameters" />
     </option>
   </component>
