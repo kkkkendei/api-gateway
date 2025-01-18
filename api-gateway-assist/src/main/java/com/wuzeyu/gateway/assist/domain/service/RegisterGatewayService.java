@@ -1,9 +1,11 @@
-package com.wuzeyu.gateway.assist.service;
+package com.wuzeyu.gateway.assist.domain.service;
 
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.wuzeyu.gateway.assist.GatewayException;
 import com.wuzeyu.gateway.assist.common.Result;
+import com.wuzeyu.gateway.assist.domain.model.aggregates.ApplicationSystemRichInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -30,6 +32,20 @@ public class RegisterGatewayService {
         LOG.info("向网关中心注册网关算力服务 gatewayId：{} gatewayName：{} gatewayAddress：{} 注册结果：{}", gatewayId, gatewayName, gatewayAddress);
         if (! "0000".equals(result.getCode()))
             throw new GatewayException("网关服务注册异常 [gatewayId：" + gatewayId + "] 、[gatewayAddress：" + gatewayAddress + "]");
+
+    }
+
+    public ApplicationSystemRichInfo pullApplicationSystemRichInfo(String address, String gatewayId) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gatewayId", gatewayId);
+        String resStr = HttpUtil.post(address + "/wg/admin/config/queryApplicationSystemRichInfo", paramMap);
+        Result<ApplicationSystemRichInfo> result = JSON.parseObject(resStr, new TypeReference<Result<ApplicationSystemRichInfo>>(){});
+        LOG.info("从网关中心拉取应用服务和接口的配置信息到本地完成注册。gatewayId：{}", gatewayId);
+        if (!"0000".equals(result.getCode()))
+            throw new GatewayException("从网关中心拉取应用服务和接口的配置信息到本地完成注册异常 [gatewayId：" + gatewayId + "]");
+
+        return result.getData();
 
     }
 

@@ -1,8 +1,7 @@
 package com.wuzeyu.gateway.assist.config;
 
-import com.wuzeyu.gateway.assist.GatewayException;
 import com.wuzeyu.gateway.assist.application.GatewayApplication;
-import com.wuzeyu.gateway.assist.service.RegisterGatewayService;
+import com.wuzeyu.gateway.assist.domain.service.RegisterGatewayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

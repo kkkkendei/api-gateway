@@ -5,11 +5,13 @@ package com.wuzeyu.gateway.assist.common;
  * @description 统一返回结果
  * @github github.com/kkkkendei
  */
-public class Result {
+public class Result<T> {
 
     private String code;
 
     private String info;
+
+    private T data;
 
     public String getCode() {
         return code;
@@ -25,6 +27,14 @@ public class Result {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
 }
