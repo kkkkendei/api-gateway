@@ -83,7 +83,14 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.wuzeyu.gateway</groupId>
+            <artifactId>api-gateway-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <resources>
@@ -143,6 +150,25 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>com.wuzeyu.gateway:api-gateway-core:jar:</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
             </plugin>
         </plugins>
     </build>
