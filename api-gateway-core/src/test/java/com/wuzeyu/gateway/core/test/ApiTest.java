@@ -22,8 +22,13 @@ public class ApiTest {
     @Test
     public void test() throws ExecutionException, InterruptedException {
 
-        //创建配置信息加载注册
+        // 创建配置信息加载注册
         Configuration configuration = new Configuration();
+        configuration.setHostName("127.0.0.1");
+        configuration.setPort(7397);
+
+        // 注册接口
+        configuration.registryConfig("api-gateway-test", "zookeeper://47.122.26.159:2181?timeout=60000", "cn.bugstack.gateway.rpc.IActivityBooth", "1.0.0");
 
         HttpStatement httpStatement01 = new HttpStatement(
                 "api-gateway-test",

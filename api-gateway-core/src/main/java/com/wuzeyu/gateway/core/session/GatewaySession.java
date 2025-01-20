@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @author wuzeyu
- * @description 用户处理网关HTTP请求
+ * @description 用户处理网关 HTTP 请求
  * @github github.com/kkkkendei
  */
 public interface GatewaySession {

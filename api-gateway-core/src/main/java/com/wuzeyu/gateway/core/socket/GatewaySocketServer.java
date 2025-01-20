@@ -24,9 +24,9 @@ public class GatewaySocketServer implements Callable<Channel> {
 
     private final Logger LOG = LoggerFactory.getLogger(GatewaySocketServer.class);
 
-    private final EventLoopGroup boss = new NioEventLoopGroup(1);
+    private EventLoopGroup boss;
 
-    private final EventLoopGroup worker = new NioEventLoopGroup();
+    private EventLoopGroup worker;
 
     private Channel channel;
 
@@ -37,6 +37,12 @@ public class GatewaySocketServer implements Callable<Channel> {
     public GatewaySocketServer(Configuration configuration, GatewaySessionFactory gatewaySessionFactory) {
         this.gatewaySessionFactory = gatewaySessionFactory;
         this.configuration = configuration;
+        this.initEventLoopGroup();
+    }
+
+    public void initEventLoopGroup() {
+        boss = new NioEventLoopGroup(configuration.getBossNThreads());
+        worker = new NioEventLoopGroup(configuration.getWorkNThreads());
     }
 
     @Override
@@ -50,7 +56,9 @@ public class GatewaySocketServer implements Callable<Channel> {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childHandler(new GatewayChannelInitializer(configuration, gatewaySessionFactory));
-            f = bootstrap.bind(new InetSocketAddress(7397)).syncUninterruptibly();
+            // Docker 容器部署会自动分配IP，所以我们只设定端口即可。
+            // f = b.bind(new InetSocketAddress(configuration.getHostName(), configuration.getPort())).syncUninterruptibly();
+            f = bootstrap.bind(new InetSocketAddress(configuration.getPort())).syncUninterruptibly();
             this.channel = f.channel();
         } catch (Exception e) {
             LOG.error("socket server start error" + e);
