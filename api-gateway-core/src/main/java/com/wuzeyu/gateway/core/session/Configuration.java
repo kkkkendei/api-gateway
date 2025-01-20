@@ -24,19 +24,29 @@ import java.util.Map;
  */
 public class Configuration {
 
+    // 网关 Netty 服务地址
+    private String hostName = "127.0.0.1";
+
+    // 网关 Netty 服务端口
+    private int port = 7397;
+
+    private int bossNThreads = 1;
+
+    private int workNThreads = 4;
+
     private final MapperRegistry registry = new MapperRegistry(this);
 
     private final Map<String, HttpStatement> httpStatementMap = new HashMap<>();
 
     private final IAuth auth = new AuthService();
 
-    //RPC应用服务配置项
+    // RPC 应用服务配置项
     private final Map<String, ApplicationConfig> applicationConfigMap = new HashMap<>();
 
-    //RPC注册中心配置项
+    // RPC 注册中心配置项
     private final Map<String, RegistryConfig> registryConfigMap = new HashMap<>();
 
-    //RPC泛化服务配置项
+    // RPC 泛化服务配置项
     private final Map<String, ReferenceConfig<GenericService>> referenceConfigMap = new HashMap<>();
 
 
@@ -58,6 +68,32 @@ public class Configuration {
         applicationConfigMap.put("api-gateway-test", application);
         registryConfigMap.put("api-gateway-test", registry);
         referenceConfigMap.put("cn.bugstack.gateway.rpc.IActivityBooth", reference);
+
+    }
+
+    public synchronized void registryConfig(String applicationName, String address, String interfaceName, String version) {
+
+        if (applicationConfigMap.get(applicationName) == null) {
+            ApplicationConfig application = new ApplicationConfig();
+            application.setName(applicationName);
+            application.setQosEnable(false);
+            applicationConfigMap.put(applicationName, application);
+        }
+
+        if (registryConfigMap.get(applicationName) == null) {
+            RegistryConfig registry = new RegistryConfig();
+            registry.setAddress(address);
+            registry.setRegister(false);
+            registryConfigMap.put(applicationName, registry);
+        }
+
+        if (referenceConfigMap.get(interfaceName) == null) {
+            ReferenceConfig<GenericService> reference = new ReferenceConfig<>();
+            reference.setInterface(interfaceName);
+            reference.setVersion(version);
+            reference.setGeneric("true");
+            referenceConfigMap.put(interfaceName, reference);
+        }
 
     }
 
@@ -95,6 +131,38 @@ public class Configuration {
 
     public boolean authValidate(String uId, String token) {
         return auth.validate(uId, token);
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public int getBossNThreads() {
+        return bossNThreads;
+    }
+
+    public void setBossNThreads(int bossNThreads) {
+        this.bossNThreads = bossNThreads;
+    }
+
+    public int getWorkNThreads() {
+        return workNThreads;
+    }
+
+    public void setWorkNThreads(int workNThreads) {
+        this.workNThreads = workNThreads;
     }
 
 }
