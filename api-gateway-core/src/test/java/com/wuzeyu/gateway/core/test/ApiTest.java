@@ -28,7 +28,7 @@ public class ApiTest {
         configuration.setPort(7397);
 
         // 注册接口
-        configuration.registryConfig("api-gateway-test", "zookeeper://47.122.26.159:2181?timeout=60000", "cn.bugstack.gateway.rpc.IActivityBooth", "1.0.0");
+        configuration.registryConfig("api-gateway-test", "zookeeper://47.122.26.159:2181", "cn.bugstack.gateway.rpc.IActivityBooth", "1.0.0");
 
         HttpStatement httpStatement01 = new HttpStatement(
                 "api-gateway-test",

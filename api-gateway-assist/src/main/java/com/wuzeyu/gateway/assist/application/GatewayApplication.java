@@ -60,8 +60,8 @@ public class GatewayApplication implements ApplicationListener<ContextRefreshedE
                     HttpStatement httpStatement = new HttpStatement(
                             system.getSystemId(),
                             itf.getInterfaceId(),
-                            method.getMethodId(),
                             method.getParameterType(),
+                            method.getMethodId(),
                             method.getUri(),
                             HttpCommandType.valueOf(method.getHttpCommandType()),
                             method.isAuth());

@@ -82,7 +82,7 @@ public class Configuration {
 
         if (registryConfigMap.get(applicationName) == null) {
             RegistryConfig registry = new RegistryConfig();
-            registry.setAddress(address);
+            registry.setAddress(address + "?timeout=60000");
             registry.setRegister(false);
             registryConfigMap.put(applicationName, registry);
         }
