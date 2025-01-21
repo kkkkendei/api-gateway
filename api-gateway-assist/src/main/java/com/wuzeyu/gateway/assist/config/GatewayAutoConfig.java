@@ -32,8 +32,8 @@ public class GatewayAutoConfig {
     }
 
     @Bean
-    public GatewayApplication gatewayApplication(GatewayServiceProperties gatewayServiceProperties, GatewayCenterService gatewayCenterService, com.wuzeyu.gateway.core.session.Configuration configuration) {
-        return new GatewayApplication(gatewayServiceProperties, gatewayCenterService, configuration);
+    public GatewayApplication gatewayApplication(GatewayServiceProperties gatewayServiceProperties, GatewayCenterService gatewayCenterService, com.wuzeyu.gateway.core.session.Configuration configuration, Channel channel) {
+        return new GatewayApplication(gatewayServiceProperties, gatewayCenterService, configuration, channel);
     }
 
     /**
