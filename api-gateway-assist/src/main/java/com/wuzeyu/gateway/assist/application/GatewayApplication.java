@@ -1,6 +1,5 @@
 package com.wuzeyu.gateway.assist.application;
 
-import com.alibaba.fastjson.JSON;
 import com.wuzeyu.gateway.assist.config.GatewayServiceProperties;
 import com.wuzeyu.gateway.assist.domain.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.assist.domain.model.vo.ApplicationInterfaceMethodVO;
@@ -17,7 +16,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.ContextClosedEvent;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  * @description 网关应用，与 Spring 连接，调用网关注册和接口拉取
  * @github github.com/kkkkendei
  */
-public class GatewayApplication implements ApplicationContextAware, ApplicationListener<ContextRefreshedEvent> {
+public class GatewayApplication implements ApplicationContextAware, ApplicationListener<ContextClosedEvent> {
 
     private Logger LOG = LoggerFactory.getLogger(GatewayApplication.class);
 
@@ -83,7 +82,16 @@ public class GatewayApplication implements ApplicationContextAware, ApplicationL
 
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(ContextClosedEvent event) {
+
+        try {
+            if (gatewaySocketServerChannel.isActive()) {
+                LOG.info("应用容器关闭，Api网关服务关闭。localAddress：{}", gatewaySocketServerChannel.localAddress());
+                gatewaySocketServerChannel.close();
+            }
+        } catch (Exception e) {
+            LOG.error("应用容器关闭，Api网关服务关闭失败", e);
+        }
 
     }
 }
