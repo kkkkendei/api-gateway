@@ -24,6 +24,7 @@
       <module name="api-gateway-assist-test" options="-parameters" />
       <module name="api-gateway-center" options="-parameters" />
       <module name="api-gateway-engine" options="-parameters" />
+      <module name="api-gateway-sdk" options="-parameters" />
     </option>
   </component>
 </project>

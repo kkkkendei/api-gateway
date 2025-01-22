@@ -1,10 +1,13 @@
 package com.wuzeyu.gateway.sdk.application;
 
 
+import com.alibaba.fastjson.JSON;
 import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
+import com.wuzeyu.gateway.sdk.GatewayException;
 import com.wuzeyu.gateway.sdk.annotation.ApiProducerClazz;
 import com.wuzeyu.gateway.sdk.annotation.ApiProducerMethod;
 import com.wuzeyu.gateway.sdk.config.GatewaySDKServiceProperties;
+import com.wuzeyu.gateway.sdk.domain.service.GatewayCenterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -23,8 +26,11 @@ public class GatewaySDKApplication implements BeanPostProcessor {
 
     private GatewaySDKServiceProperties properties;
 
-    public GatewaySDKApplication(GatewaySDKServiceProperties properties) {
+    private GatewayCenterService gatewayCenterService;
+
+    public GatewaySDKApplication(GatewaySDKServiceProperties properties, GatewayCenterService gatewayCenterService) {
         this.properties = properties;
+        this.gatewayCenterService = gatewayCenterService;
     }
 
     @Override
@@ -33,9 +39,22 @@ public class GatewaySDKApplication implements BeanPostProcessor {
         ApiProducerClazz apiProducerClazz = bean.getClass().getAnnotation(ApiProducerClazz.class);
         if (apiProducerClazz == null) return bean;
         // 1. 系统信息
-        LOG.info("\n应用注册：系统信息 \nsystemId: {} \nsystemName: {} \nsystemType: {} \nsystemRegistry: {}");
+        LOG.info("\n应用注册：系统信息 \nsystemId: {} \nsystemName: {} \nsystemType: {} \nsystemRegistry: {}", properties.getSystemId(), properties.getSystemName(), "RPC", properties.getSystemRegistry());
+        gatewayCenterService.doRegisterApplication(properties.getAddress(), properties.getSystemId(), properties.getSystemName(), "RPC", properties.getSystemRegistry());
+
         // 2. 接口信息
-        LOG.info("\n应用注册：接口信息 \nsystemId: {} \ninterfaceId: {} \ninterfaceName: {} \ninterfaceVersion: {}");
+        Class<?>[] interfaces = bean.getClass().getInterfaces();
+        if (interfaces.length != 1) {
+            throw new GatewayException(bean.getClass().getName() + "interfaces not one this is " + JSON.toJSONString(interfaces));
+        }
+        String interfaceId = interfaces[0].getName();
+        LOG.info("\n应用注册：接口信息 \nsystemId: {} \ninterfaceId: {} \ninterfaceName: {} \ninterfaceVersion: {}", properties.getSystemId(), interfaceId, apiProducerClazz.interfaceName(), apiProducerClazz.interfaceVersion());
+        gatewayCenterService.doRegisterApplicationInterface(properties.getAddress(),
+                properties.getSystemId(),
+                interfaceId,
+                apiProducerClazz.interfaceName(),
+                apiProducerClazz.interfaceVersion());
+
         // 3. 方法信息
         Method[] methods = bean.getClass().getMethods();
         for (Method method : methods) {
@@ -51,6 +70,15 @@ public class GatewaySDKApplication implements BeanPostProcessor {
             LOG.info("\n应用注册：方法信息 \nsystemId: {} \ninterfaceId: {} \nmethodId: {} \nmethodName: {} \nparameterType: {} \nuri: {} \nhttpCommandType: {} \nauth: {}",
                     properties.getSystemId(),
                     bean.getClass().getName(),
+                    method.getName(),
+                    apiProducerMethod.methodName(),
+                    parameterType,
+                    apiProducerMethod.uri(),
+                    apiProducerMethod.httpCommandType(),
+                    apiProducerMethod.auth());
+            gatewayCenterService.doRegisterApplicationInterfaceMethod(properties.getAddress(),
+                    properties.getSystemId(),
+                    interfaceId,
                     method.getName(),
                     apiProducerMethod.methodName(),
                     parameterType,
