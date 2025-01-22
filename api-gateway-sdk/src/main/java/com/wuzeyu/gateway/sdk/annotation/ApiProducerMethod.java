@@ -24,5 +24,5 @@ public @interface ApiProducerMethod {
 
     /** 是否认证；true = 1是、false = 0否 */
     int auth() default 0;
-    
+
 }
