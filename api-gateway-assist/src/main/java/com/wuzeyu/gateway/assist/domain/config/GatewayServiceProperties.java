@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.assist.config;
+package com.wuzeyu.gateway.assist.domain.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

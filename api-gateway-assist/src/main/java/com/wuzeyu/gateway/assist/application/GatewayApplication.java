@@ -1,6 +1,6 @@
 package com.wuzeyu.gateway.assist.application;
 
-import com.wuzeyu.gateway.assist.config.GatewayServiceProperties;
+import com.wuzeyu.gateway.assist.domain.config.GatewayServiceProperties;
 import com.wuzeyu.gateway.assist.domain.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.assist.domain.model.vo.ApplicationInterfaceMethodVO;
 import com.wuzeyu.gateway.assist.domain.model.vo.ApplicationInterfaceVO;

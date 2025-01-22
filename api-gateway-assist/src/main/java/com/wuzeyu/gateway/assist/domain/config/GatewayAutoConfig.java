@@ -1,4 +1,4 @@
-package com.wuzeyu.gateway.assist.config;
+package com.wuzeyu.gateway.assist.domain.config;
 
 import com.wuzeyu.gateway.assist.application.GatewayApplication;
 import com.wuzeyu.gateway.assist.domain.service.GatewayCenterService;
