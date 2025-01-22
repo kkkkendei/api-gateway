@@ -9,5 +9,9 @@
     <file url="file://$PROJECT_DIR$/api-gateway-center/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-gateway-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-gateway-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api-gateway-engine/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api-gateway-engine/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api-gateway-sdk/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api-gateway-sdk/src/main/resources" charset="UTF-8" />
   </component>
 </project>

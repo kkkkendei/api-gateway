@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway-sdk" />
         <module name="api-gateway-assist-test" />
         <module name="api-gateway-center" />
         <module name="api-gateway-core" />
         <module name="api-gateway-assist" />
+        <module name="api-gateway-engine" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +23,7 @@
       <module name="api-gateway-assist" options="-parameters" />
       <module name="api-gateway-assist-test" options="-parameters" />
       <module name="api-gateway-center" options="-parameters" />
+      <module name="api-gateway-engine" options="-parameters" />
     </option>
   </component>
 </project>
