@@ -84,5 +84,10 @@ public class ConfigManageService implements IConfigManageService {
 
     }
 
+    @Override
+    public String queryGatewayDistribution(String systemId) {
+        return configManageRepository.queryGatewayDistribution(systemId);
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.wuzeyu.gateway.center.interfaces;
 
 
 import com.wuzeyu.gateway.center.application.IConfigManageService;
+import com.wuzeyu.gateway.center.application.IMessageService;
 import com.wuzeyu.gateway.center.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import com.wuzeyu.gateway.center.domain.manage.model.vo.GatewayServerVO;
 import com.wuzeyu.gateway.center.infrastructure.common.ResponseCode;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wuzeyu
@@ -26,6 +28,9 @@ public class GatewayConfigManage {
 
     @Resource
     private IConfigManageService configManageService;
+
+    @Resource
+    private IMessageService messageService;
 
 
     @GetMapping(value = "queryServerConfig", produces = "application/json;charset=utf-8")
@@ -73,6 +78,18 @@ public class GatewayConfigManage {
             return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), applicationSystemRichInfo);
         } catch (Exception e) {
             LOG.error("查询分配到网关下的待注册系统信息(系统、接口、方法)异常 gatewayId：{}", gatewayId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
+
+    @PostMapping(value = "queryRedisConfig", produces = "application/json;charset=utf-8")
+    public Result<Map<String, String>> queryRedisConfig() {
+        try {
+            LOG.info("查询配置中心Redis配置信息");
+            Map<String, String> redisConfig = messageService.queryRedisConfig();
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), redisConfig);
+        } catch (Exception e) {
+            LOG.error("查询配置中心Redis配置信息失败", e);
             return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
         }
     }

@@ -1,6 +1,8 @@
 package com.wuzeyu.gateway.center.interfaces;
 
 
+import com.wuzeyu.gateway.center.application.IConfigManageService;
+import com.wuzeyu.gateway.center.application.IMessageService;
 import com.wuzeyu.gateway.center.application.IRegisterManageService;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceMethodVO;
 import com.wuzeyu.gateway.center.domain.register.model.vo.ApplicationInterfaceVO;
@@ -30,6 +32,12 @@ public class RpcRegisterManage {
 
     @Resource
     private IRegisterManageService registerManageService;
+
+    @Resource
+    private IConfigManageService configManageService;
+
+    @Resource
+    private IMessageService messageService;
 
     @PostMapping(value = "registerApplication", produces = "application/json;charset=utf-8")
     public Result<Boolean> registerApplication(@RequestParam String systemId,
@@ -106,6 +114,20 @@ public class RpcRegisterManage {
             return new Result<>(ResponseCode.INDEX_DUP.getCode(), e.getMessage(), true);
         } catch (Exception e) {
             LOG.error("注册应用接口失败 systemId：{}", systemId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), false);
+        }
+    }
+
+    @PostMapping(value = "registerEvent", produces = "application/json;charset=utf-8")
+    public Result<Boolean> registerEvent(@RequestParam String systemId) {
+        try {
+            LOG.info("应用信息注册完成通知 systemId: {}", systemId);
+            // 推送注册信息
+            String gatewayId = configManageService.queryGatewayDistribution(systemId);
+            messageService.pushMessage(gatewayId, systemId);
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), true);
+        } catch (Exception e) {
+            LOG.error("应用信息注册完成通知失败 systemId: {}", systemId, e);
             return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), false);
         }
     }

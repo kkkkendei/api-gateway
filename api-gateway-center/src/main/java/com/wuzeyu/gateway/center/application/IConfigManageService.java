@@ -19,4 +19,6 @@ public interface IConfigManageService {
 
     ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId);
 
+    String queryGatewayDistribution(String systemId);
+
 }
