@@ -46,11 +46,18 @@ public class ConfigManageService implements IConfigManageService {
     }
 
     @Override
-    public ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId) {
+    public ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId, String systemId) {
 
-        List<String> systemId = configManageRepository.queryGatewayDistributionSystemIdList(gatewayId);
+        //  查询出网关ID对应的关联系统ID集合。也就是一个网关ID会被分配一些系统RPC服务注册进来，需要把这些服务查询出来。
+        List<String> systemIdList = new ArrayList<>();
+        if (systemId == null || systemId.equals("")){
+            systemIdList = configManageRepository.queryGatewayDistributionSystemIdList(gatewayId);
+        } else {
+            systemIdList.add(systemId);
+        }
 
-        List<ApplicationSystemVO> applicationSystemVOList = configManageRepository.queryApplicationSystemList(systemId);
+        //  查询系统ID对应的系统列表信息
+        List<ApplicationSystemVO> applicationSystemVOList = configManageRepository.queryApplicationSystemList(systemIdList);
 
         // 1. 查询所有系统的接口信息
         Map<String, List<ApplicationInterfaceVO>> systemInterfaceMap = new HashMap<>();
