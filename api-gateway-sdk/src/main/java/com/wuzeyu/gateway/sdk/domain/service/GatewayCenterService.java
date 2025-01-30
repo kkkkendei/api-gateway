@@ -95,4 +95,22 @@ public class GatewayCenterService {
             throw new GatewayException("向网关中心注册应用接口方法服务异常 [systemId：" + systemId + "] 、[interfaceId：" + interfaceId + "]、[methodId：]" + methodId + "]");
     }
 
+    public void doRegisterEvent(String address, String systemId) {
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("systemId", systemId);
+        String resStr;
+        try {
+            resStr = HttpUtil.post(address + "/wg/admin/register/registerEvent", paramMap, 5500);
+        } catch (Exception e) {
+            LOG.error("应用服务接口事件方法异常，链接资源不可用：{}", address + "/wg/admin/register/registerEvent");
+            throw e;
+        }
+        Result<Boolean> res = JSON.parseObject(resStr, new TypeReference<Result<Boolean>>(){});
+        LOG.info("应用服务接口事件方法 systemId：{} 注册结果：{}", systemId, resStr);
+        if (! res.getCode().equals("0000"))
+            throw new GatewayException("向网关中心注册应用接口服务异常 [systemId：" + systemId + "] ");
+
+    }
+
 }

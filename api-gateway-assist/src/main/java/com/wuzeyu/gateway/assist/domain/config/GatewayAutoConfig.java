@@ -10,7 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import redis.clients.jedis.JedisPoolConfig;
 
+import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -25,6 +36,48 @@ import java.util.concurrent.Future;
 public class GatewayAutoConfig {
 
     private Logger LOG = LoggerFactory.getLogger(GatewayAutoConfig.class);
+
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory(GatewayServiceProperties properties, GatewayCenterService gatewayCenterService) {
+
+        // 拉取注册中心的 Redis 配置信息
+        Map<String, String> redisConfig = gatewayCenterService.queryRedisConfig(properties.getAddress());
+        // 构建 Redis 服务
+        RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration();
+        standaloneConfig.setHostName(redisConfig.get("host"));
+        standaloneConfig.setPort(Integer.parseInt(redisConfig.get("port")));
+        // 默认配置信息；一般可以抽取出来
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(100);
+        poolConfig.setMaxWaitMillis(30 * 1000);
+        poolConfig.setMinIdle(20);
+        poolConfig.setMaxIdle(40);
+        poolConfig.setTestWhileIdle(true);
+        // 创建 Redis 配置
+        JedisClientConfiguration clientConfig = JedisClientConfiguration.builder()
+                .connectTimeout(Duration.ofSeconds(2))
+                .clientName("api-gateway-assist-redis-" + properties.getGatewayId())
+                .usePooling().poolConfig(poolConfig).build();
+        // 实例化 Redis 链接对象
+        return new JedisConnectionFactory(standaloneConfig, clientConfig);
+
+    }
+
+    @Bean
+    public RedisMessageListenerContainer container(GatewayServiceProperties properties, RedisConnectionFactory redisConnectionFactory, MessageListenerAdapter msgAgreementListenerAdapter) {
+
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(redisConnectionFactory);
+
+        container.addMessageListener(msgAgreementListenerAdapter, new PatternTopic(properties.getGatewayId()));
+        return container;
+
+    }
+
+    @Bean
+    public MessageListenerAdapter msgAgreementListenerAdapter(GatewayApplication gatewayApplication) {
+        return new MessageListenerAdapter(gatewayApplication, "receiveMessage");
+    }
 
     @Bean
     public GatewayCenterService registerGatewayService() {
