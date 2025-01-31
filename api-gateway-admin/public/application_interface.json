@@ -1,0 +1,11 @@
+{
+  "list": [
+    {
+      "interfaceId": "cn.bugstack.gateway.rpc.IActivityBooth",
+      "interfaceName": "活动服务",
+      "interfaceVersion": "1.0.0",
+      "systemId": "api-gateway-test-provider"
+    }
+  ],
+  "pageTotal": 3
+}

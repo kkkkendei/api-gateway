@@ -1,0 +1,17 @@
+{
+  "list": [
+    {
+      "groupId": "10001",
+      "groupName": "廊坊网关"
+    },
+    {
+      "groupId": "10002",
+      "groupName": "亦庄网关"
+    },
+    {
+      "groupId": "10003",
+      "groupName": "东丽网关"
+    }
+  ],
+  "pageTotal": 3
+}

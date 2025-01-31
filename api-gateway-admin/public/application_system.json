@@ -1,0 +1,11 @@
+{
+  "list": [
+    {
+      "systemId": "api-gateway-test-provider",
+      "systemName": "网关sdk测试工程",
+      "systemRegistry": "zookeeper://192.168.1.105:2181",
+      "systemType": "RPC"
+    }
+  ],
+  "pageTotal": 3
+}

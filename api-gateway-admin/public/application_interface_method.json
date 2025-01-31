@@ -1,0 +1,35 @@
+{
+  "list": [
+    {
+      "auth": 0,
+      "httpCommandType": "GET",
+      "interfaceId": "cn.bugstack.gateway.rpc.IActivityBooth",
+      "methodId": "sayHi",
+      "methodName": "探活方法",
+      "parameterType": "java.lang.String",
+      "systemId": "api-gateway-test-provider",
+      "uri": "/wg/activity/sayHi"
+    },
+    {
+      "auth": 1,
+      "httpCommandType": "POST",
+      "interfaceId": "cn.bugstack.gateway.rpc.IActivityBooth",
+      "methodId": "insert",
+      "methodName": "插入方法",
+      "parameterType": "cn.bugstack.gateway.rpc.dto.XReq",
+      "systemId": "api-gateway-test-provider",
+      "uri": "/wg/activity/insert"
+    },
+    {
+      "auth": 0,
+      "httpCommandType": "POST",
+      "interfaceId": "cn.bugstack.gateway.rpc.IActivityBooth",
+      "methodId": "test",
+      "methodName": "测试方法",
+      "parameterType": "java.lang.String,cn.bugstack.gateway.rpc.dto.XReq",
+      "systemId": "api-gateway-test-provider",
+      "uri": "/wg/activity/test"
+    }
+  ],
+  "pageTotal": 3
+}

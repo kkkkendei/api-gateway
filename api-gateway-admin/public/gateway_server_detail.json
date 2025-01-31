@@ -1,0 +1,85 @@
+{
+  "list": [
+    {
+      "createTime": 1667719331000,
+      "gatewayAddress": "127.0.0.196",
+      "gatewayId": "api-gateway-g1",
+      "gatewayName": "电商支付网关",
+      "groupId": "10001",
+      "id": 13,
+      "status": 0,
+      "updateTime": 1667719331000
+    },
+    {
+      "createTime": 1667719331000,
+      "gatewayAddress": "127.0.0.197",
+      "gatewayId": "api-gateway-g2",
+      "gatewayName": "电商支付网关",
+      "groupId": "10001",
+      "id": 14,
+      "status": 1,
+      "updateTime": 1667719331000
+    },
+    {
+      "createTime": 1667719399000,
+      "gatewayAddress": "127.0.0.198",
+      "gatewayId": "api-gateway-g3",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 15,
+      "status": 0,
+      "updateTime": 1667719399000
+    },
+    {
+      "createTime": 1670052979000,
+      "gatewayAddress": "127.0.0.1:7397",
+      "gatewayId": "api-gateway-g4",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 16,
+      "status": 1,
+      "updateTime": 1670052979000
+    },
+    {
+      "createTime": 1670642231000,
+      "gatewayAddress": "192.168.1.105:7397",
+      "gatewayId": "api-gateway-g4",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 17,
+      "status": 1,
+      "updateTime": 1670642231000
+    },
+    {
+      "createTime": 1670646184000,
+      "gatewayAddress": "192.168.1.105:8099",
+      "gatewayId": "api-gateway-g4",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 18,
+      "status": 1,
+      "updateTime": 1670646184000
+    },
+    {
+      "createTime": 1670649707000,
+      "gatewayAddress": "/0:0:0:0:0:0:0:0:7399",
+      "gatewayId": "api-gateway-g4",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 19,
+      "status": 1,
+      "updateTime": 1670649707000
+    },
+    {
+      "createTime": 1672468679000,
+      "gatewayAddress": "127.0.0.1:7399",
+      "gatewayId": "api-gateway-g4",
+      "gatewayName": "电商配送网关",
+      "groupId": "10001",
+      "id": 20,
+      "status": 1,
+      "updateTime": 1672468679000
+    }
+  ],
+  "pageTotal": 8
+}

@@ -1,0 +1,14 @@
+{
+  "list": [
+    {
+      "createTime": 1669439580000,
+      "gatewayId": "api-gateway-g4",
+      "groupId": "10001",
+      "id": 1,
+      "systemId": "api-gateway-test-provider",
+      "systemName": "测试工程",
+      "updateTime": 1669439580000
+    }
+  ],
+  "pageTotal": 3
+}

@@ -15,6 +15,7 @@
         <module>api-gateway-assist-test</module>
         <module>api-gateway-engine</module>
         <module>api-gateway-sdk</module>
+        <module>api-gateway-admin</module>
     </modules>
 
 
