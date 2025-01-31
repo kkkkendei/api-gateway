@@ -1,0 +1,9 @@
+server:
+  port: 8002
+
+api-gateway:
+  address: http://localhost:8080  # 注册中心；从这里获取接口信息以及完成注册网关操作
+  groupId: 10001                  # 网关分组；每一个网关通信组件都分配一个对应的分组
+  gatewayId: api-gateway-g4       # 网关标识；
+  gatewayName: 电商配送网关         # 网关名称
+  gatewayAddress: 127.0.0.1:7397  # 网关服务；网关的通信服务Netty启动时使用IP和端口

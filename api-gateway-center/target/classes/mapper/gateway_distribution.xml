@@ -12,8 +12,12 @@
         <id column="update_time" property="updateTime"/>
     </resultMap>
 
-    <select id="queryGatewayDistributionSystemIdList" resultType="java.lang.String">
-        SELECT system_id FROM gateway_distribution
+    <select id="queryGatewayDistributionSystemIdList" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT system_id FROM gateway_distribution WHERE gateway_id = #{gatewayId}
+    </select>
+
+    <select id="queryGatewayDistribution" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT gateway_id FROM gateway_distribution WHERE system_id = #{systemId}
     </select>
 
 </mapper>
