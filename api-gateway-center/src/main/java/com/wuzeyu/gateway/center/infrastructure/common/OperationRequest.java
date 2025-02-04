@@ -22,7 +22,7 @@ public class OperationRequest<T> {
     public OperationRequest(String page, String rows) {
         this.pageIndex = StringUtils.isEmpty(page) ? 1 : Integer.parseInt(page);
         this.pageSize = StringUtils.isEmpty(page) ? 10 : Integer.parseInt(rows);
-        if (0 == this.pageIndex) {
+        if (this.pageIndex == 0) {
             this.pageIndex = 1;
         }
         this.pageStart = (this.pageIndex - 1) * this.pageSize;

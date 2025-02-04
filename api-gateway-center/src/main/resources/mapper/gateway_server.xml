@@ -12,4 +12,24 @@
         SELECT id, group_id, group_name FROM gateway_server
     </select>
 
+    <select id="queryGatewayServerListByPage" parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest" resultMap="gatewayServerMap">
+        SELECT id, group_id, group_name, FROM gateway_server
+        <where>
+            <if test="data != null">
+                and group_id = #{data}
+            </if>
+        </where>
+        order by id desc
+        limit #{pageStart}, #{pageEnd}
+    </select>
+
+    <select id="queryGatewayServerListCountByPage" parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest" resultMap="java.lang.Integer">
+        SELECT count(id) FROM gateway_server
+        <where>
+            <if test="data != null">
+                and group_id = #{data}
+            </if>
+        </where>
+    </select>
+
 </mapper>
