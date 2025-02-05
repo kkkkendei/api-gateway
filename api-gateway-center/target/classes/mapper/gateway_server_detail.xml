@@ -30,4 +30,40 @@
         WHERE gateway_id = #{gatewayId} AND gateway_address = #{gatewayAddress}
     </update>
 
+    <select id="queryGatewayServerDetailList" resultMap="gatewayServerDetailMap">
+        SELECT id, group_id, gateway_id, gateway_name, gateway_address, status, create_time, update_time
+        FROM gateway_server_detail
+    </select>
+
+    <select id="queryGatewayServerDetailListByPage"
+            parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest"
+            resultMap="gatewayServerDetailMap">
+        SELECT id, group_id, gateway_id, gateway_name, gateway_address, status, create_time, update_time
+        FROM gateway_server_detail
+        <where>
+            <if test="data != null and data.groupId != ''">
+                and group_id = #{data.groupId}
+            </if>
+            <if test="data != null and data.gatewayId != ''">
+                and gateway_id = #{data.gatewayId}
+            </if>
+        </where>
+        order by id desc
+        limit #{pageStart},#{pageEnd}
+    </select>
+
+    <select id="queryGatewayServerDetailListCountByPage"
+            parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest"
+            resultType="java.lang.Integer">
+        SELECT count(id) FROM gateway_server_detail
+        <where>
+            <if test="data != null and data.groupId != ''">
+                and group_id = #{data.groupId}
+            </if>
+            <if test="data != null and data.gatewayId != ''">
+                and gateway_id = #{data.gatewayId}
+            </if>
+        </where>
+    </select>
+
 </mapper>
