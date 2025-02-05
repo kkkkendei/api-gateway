@@ -20,4 +20,40 @@
         SELECT gateway_id FROM gateway_distribution WHERE system_id = #{systemId}
     </select>
 
+    <select id="queryGatewayDistributionList" resultMap="gatewayDistributionMap">
+        SELECT id, group_id, gateway_id, system_id, system_name, create_time, update_time
+        FROM gateway_distribution
+    </select>
+
+    <select id="queryGatewayDistributionListByPage"
+            parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest"
+            resultMap="gatewayDistributionMap">
+        SELECT id, group_id, gateway_id, system_id, system_name, create_time, update_time
+        FROM gateway_distribution
+        <where>
+            <if test="data != null and data.groupId != ''">
+                and group_id = #{data.groupId}
+            </if>
+            <if test="data != null and data.gatewayId != ''">
+                and gateway_id = #{data.gatewayId}
+            </if>
+        </where>
+        order by id desc
+        limit #{pageStart},#{pageEnd}
+    </select>
+
+    <select id="queryGatewayDistributionListCountByPage"
+            parameterType="com.wuzeyu.gateway.center.infrastructure.common.OperationRequest"
+            resultType="java.lang.Integer">
+        SELECT count(id) FROM gateway_distribution
+        <where>
+            <if test="data != null and data.groupId != ''">
+                and group_id = #{data.groupId}
+            </if>
+            <if test="data != null and data.gatewayId != ''">
+                and gateway_id = #{data.gatewayId}
+            </if>
+        </where>
+    </select>
+
 </mapper>
